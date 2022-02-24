@@ -33,6 +33,7 @@ import { Avatar } from "@chakra-ui/react";
 import Head from "next/head";
 import React, { useRef } from "react";
 import Router from "next/router";
+import Link from "next/link";
 
 const handler = (path) => {
   Router.push(path);
@@ -59,8 +60,7 @@ const user = () => {
       >
         <Heading pt="2" pb="2" pl="5" bg="#C5D8D1">
           <Flex alignItems="center">
-            {/* エラー文
-           Warning: Received `true` for a non-boolean attribute `t`. */}
+            {/* エラー文 404 (Not Found) */}
             <HamburgerIcon ref={btnRef} onClick={onOpen} mr="24px" />
 
             <Drawer
@@ -80,17 +80,22 @@ const user = () => {
                     <Text>リヴァイ</Text>
                   </Flex>
 
-                  <Flex alignItems="center">
+                  <Flex
+                    alignItems="center"
+                    cursor="pointer"
+                    onClick={() => handler("/posting")}
+                    _hover={{ background: "#8FBFE0", borderRadius: "20px" }}
+                  >
                     <AddIcon mr="8px" />
                     <Text lineHeight="48px">質問を作成</Text>
                   </Flex>
 
-                  <Flex alignItems="center" mb="16px">
+                  <Flex alignItems="center" mb="16px"  _hover={{ background: "#8FBFE0", borderRadius: "20px" }}>
                     <EditIcon mr="8px" />
                     <Text lineHeight="48px">作成した質問を編集</Text>
                   </Flex>
                   <Box textAlign="center">
-                    <Button mt="40px" colorScheme="red" t>
+                    <Button mt="40px" colorScheme="red">
                       Log Out
                     </Button>
                   </Box>
@@ -161,7 +166,6 @@ const user = () => {
                   </Flex>
                 </FormControl>
                 <Divider borderColor="gray" borderBottomWidth="2px" />
-               
               </Stack>
             </Container>
             <Spacer />
@@ -171,6 +175,7 @@ const user = () => {
                 _hover={{ opacity: "0.8" }}
                 onClick={() => handler("/user")}
                 mr="2"
+                
               >
                 <ArrowLeftIcon mr="2" />
                 戻る
