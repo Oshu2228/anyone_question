@@ -19,6 +19,11 @@ import { Avatar } from "@chakra-ui/react";
 import Head from "next/head";
 import React, { useRef } from "react";
 import QuestionList from "./components/QuestionList";
+import Router from "next/router";
+
+const handler = (path) => {
+  Router.push(path);
+};
 
 const user = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -41,7 +46,7 @@ const user = () => {
       >
         <Heading pt="2" pb="2" pl="5" bg="#C5D8D1">
           <Flex alignItems="center">
-          {/* エラー文
+            {/* エラー文
            Warning: Received `true` for a non-boolean attribute `t`. */}
             <HamburgerIcon ref={btnRef} onClick={onOpen} mr="24px" />
 
@@ -98,7 +103,7 @@ const user = () => {
           {/* <Search /> */}
 
           <Box mt="10" mr="5" textAlign="right">
-            <Button background="#F4D1AE" _hover={{ opacity:"0.8"}} >
+            <Button background="#F4D1AE" _hover={{ opacity: "0.8" }} onClick={()=>handler('/posting')}>
               <AddIcon mr="2" />
               新規投稿
             </Button>
