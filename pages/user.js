@@ -46,8 +46,7 @@ const user = () => {
       >
         <Heading pt="2" pb="2" pl="5" bg="#C5D8D1">
           <Flex alignItems="center">
-            {/* エラー文
-           Warning: Received `true` for a non-boolean attribute `t`. */}
+            {/* エラー文 404 (Not Found) */}
             <HamburgerIcon ref={btnRef} onClick={onOpen} mr="24px" />
 
             <Drawer
@@ -67,17 +66,22 @@ const user = () => {
                     <Text>リヴァイ</Text>
                   </Flex>
 
-                  <Flex alignItems="center">
+                  <Flex
+                    alignItems="center"
+                    cursor="pointer"
+                    onClick={() => handler("/posting")}
+                    _hover={{ background: "#8FBFE0", borderRadius: "20px" }}
+                  >
                     <AddIcon mr="8px" />
                     <Text lineHeight="48px">質問を作成</Text>
                   </Flex>
 
-                  <Flex alignItems="center" mb="16px">
+                  <Flex alignItems="center" mb="16px"  _hover={{ background: "#8FBFE0", borderRadius: "20px" }}>
                     <EditIcon mr="8px" />
                     <Text lineHeight="48px">作成した質問を編集</Text>
                   </Flex>
                   <Box textAlign="center">
-                    <Button mt="40px" colorScheme="red" t>
+                    <Button mt="40px" colorScheme="red">
                       Log Out
                     </Button>
                   </Box>
@@ -103,7 +107,11 @@ const user = () => {
           {/* <Search /> */}
 
           <Box mt="10" mr="5" textAlign="right">
-            <Button background="#F4D1AE" _hover={{ opacity: "0.8" }} onClick={()=>handler('/posting')}>
+            <Button
+              background="#F4D1AE"
+              _hover={{ opacity: "0.8" }}
+              onClick={() => handler("/posting")}
+            >
               <AddIcon mr="2" />
               新規投稿
             </Button>
