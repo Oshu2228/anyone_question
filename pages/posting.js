@@ -28,6 +28,7 @@ import {
   Text,
   Textarea,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
 import { Avatar } from "@chakra-ui/react";
 import Head from "next/head";
@@ -47,6 +48,7 @@ const user = () => {
   const [addTitle, setAddTitle] = useState("");
   const [addText, setAddText] = useState("");
   const router = useRouter();
+  const toast = useToast()
 
   const handleInputName = (e) => {
     setAddName(e.target.value);
@@ -79,6 +81,16 @@ const user = () => {
         createDate: today(),
       },
     ]);
+
+    if( addName === "" || addTitle === "" || addText === ""){
+      return toast({
+        title: "空欄の項目があります",
+        position: "top",
+        status: 'warning',
+        duration: 2000,
+        isClosable: true,
+      });
+    }
     setAddName("");
     setAddTitle("");
     setAddText("");
