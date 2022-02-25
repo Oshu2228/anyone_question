@@ -32,10 +32,10 @@ import {
 } from "@chakra-ui/react";
 import { Avatar } from "@chakra-ui/react";
 import Head from "next/head";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import Router, { useRouter } from "next/router";
-import Link from "next/link";
 import { useRecoilState } from "recoil";
+import { pushQuestion } from "./firebase";
 import { postsState } from "./atoms/atom";
 
 const handler = (path) => {
@@ -48,7 +48,7 @@ const user = () => {
   const [addTitle, setAddTitle] = useState("");
   const [addText, setAddText] = useState("");
   const router = useRouter();
-  const toast = useToast()
+  const toast = useToast();
 
   const handleInputName = (e) => {
     setAddName(e.target.value);
@@ -82,15 +82,16 @@ const user = () => {
       },
     ]);
 
-    if( addName === "" || addTitle === "" || addText === ""){
+    if (addName === "" || addTitle === "" || addText === "") {
       return toast({
         title: "空欄の項目があります",
         position: "top",
-        status: 'warning',
+        status: "warning",
         duration: 2000,
         isClosable: true,
       });
     }
+    pushQuestion({ name: addName, title: addTitle, text: addText });
     setAddName("");
     setAddTitle("");
     setAddText("");
