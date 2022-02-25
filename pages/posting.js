@@ -28,20 +28,79 @@ import {
   Text,
   Textarea,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
 import { Avatar } from "@chakra-ui/react";
 import Head from "next/head";
-import React, { useRef } from "react";
-import Router from "next/router";
+import React, { useEffect, useRef, useState } from "react";
+import Router, { useRouter } from "next/router";
 import Link from "next/link";
+import { useRecoilState } from "recoil";
+import { postsState } from "./atoms/atom";
 
 const handler = (path) => {
   Router.push(path);
 };
 
 const user = () => {
+  const [posts, setPosts] = useRecoilState(postsState);
+  const [addName, setAddName] = useState("");
+  const [addTitle, setAddTitle] = useState("");
+  const [addText, setAddText] = useState("");
+  const router = useRouter();
+  const toast = useToast()
+
+  const handleInputName = (e) => {
+    setAddName(e.target.value);
+  };
+  const handleInputTitle = (e) => {
+    setAddTitle(e.target.value);
+  };
+  const handleInputText = (e) => {
+    setAddText(e.target.value);
+  };
+
+  const addId = posts[posts.length - 1].id + 1;
+
+  const today = () => {
+    const year = new Date().getFullYear() + "-";
+    const month = new Date().getMonth() * 1 + 1 + "-";
+    const date = new Date().getDate();
+    return year + month + date;
+  };
+
+  const newQuestion = (e) => {
+    e.preventDefault();
+    setPosts([
+      ...posts,
+      {
+        id: addId,
+        name: addName,
+        title: addTitle,
+        text: addText,
+        createDate: today(),
+      },
+    ]);
+
+    if( addName === "" || addTitle === "" || addText === ""){
+      return toast({
+        title: "空欄の項目があります",
+        position: "top",
+        status: 'warning',
+        duration: 2000,
+        isClosable: true,
+      });
+    }
+    setAddName("");
+    setAddTitle("");
+    setAddText("");
+    router.push("/user");
+  };
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
+
+  // console.log(posts[posts.length - 1].id + 1);
 
   return (
     <>
@@ -90,7 +149,11 @@ const user = () => {
                     <Text lineHeight="48px">質問を作成</Text>
                   </Flex>
 
-                  <Flex alignItems="center" mb="16px"  _hover={{ background: "#8FBFE0", borderRadius: "20px" }}>
+                  <Flex
+                    alignItems="center"
+                    mb="16px"
+                    _hover={{ background: "#8FBFE0", borderRadius: "20px" }}
+                  >
                     <EditIcon mr="8px" />
                     <Text lineHeight="48px">作成した質問を編集</Text>
                   </Flex>
@@ -128,6 +191,8 @@ const user = () => {
                         ml={[0, 6]}
                         borderColor="#bebaba"
                         borderWidth="2px"
+                        value={addName}
+                        onChange={handleInputName}
                       />
                     </Box>
                   </Flex>
@@ -145,6 +210,8 @@ const user = () => {
                         ml={[0, 6]}
                         borderColor="#bebaba"
                         borderWidth="2px"
+                        value={addTitle}
+                        onChange={handleInputTitle}
                       />
                     </Box>
                   </Flex>
@@ -162,6 +229,8 @@ const user = () => {
                       borderColor="#bebaba"
                       borderWidth="2px"
                       h="180px"
+                      value={addText}
+                      onChange={handleInputText}
                     />
                   </Flex>
                 </FormControl>
@@ -175,7 +244,6 @@ const user = () => {
                 _hover={{ opacity: "0.8" }}
                 onClick={() => handler("/user")}
                 mr="2"
-                
               >
                 <ArrowLeftIcon mr="2" />
                 戻る
@@ -185,7 +253,7 @@ const user = () => {
                 color="#FFFFFF"
                 mr="28px"
                 type="submit"
-                onClick={() => handler("/user")}
+                onClick={newQuestion}
               >
                 <CheckIcon mr="2" />
                 保存

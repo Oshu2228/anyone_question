@@ -3,7 +3,7 @@ import { recoilPersist } from "recoil-persist";
 
 const { persistAtom } = recoilPersist();
 
-export const todosState = atom({
+export const postsState = atom({
   key: "todos",
   //ダミーデータ
   default: [
@@ -30,3 +30,4 @@ export const todosState = atom({
     },
   ],
 });
+
