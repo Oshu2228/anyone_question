@@ -76,12 +76,20 @@ const user = () => {
                     <Text lineHeight="48px">質問を作成</Text>
                   </Flex>
 
-                  <Flex alignItems="center" mb="16px"  _hover={{ background: "#8FBFE0", borderRadius: "20px" }}>
+                  <Flex
+                    alignItems="center"
+                    mb="16px"
+                    _hover={{ background: "#8FBFE0", borderRadius: "20px" }}
+                  >
                     <EditIcon mr="8px" />
                     <Text lineHeight="48px">作成した質問を編集</Text>
                   </Flex>
                   <Box textAlign="center">
-                    <Button mt="40px" colorScheme="red">
+                    <Button
+                      mt="40px"
+                      colorScheme="red"
+                      onClick={() => handler("/")}
+                    >
                       Log Out
                     </Button>
                   </Box>
