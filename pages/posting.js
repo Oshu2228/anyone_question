@@ -159,7 +159,11 @@ const user = () => {
                     <Text lineHeight="48px">作成した質問を編集</Text>
                   </Flex>
                   <Box textAlign="center">
-                    <Button mt="40px" colorScheme="red">
+                    <Button
+                      mt="40px"
+                      colorScheme="red"
+                      onClick={() => handler("/")}
+                    >
                       Log Out
                     </Button>
                   </Box>
