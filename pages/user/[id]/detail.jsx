@@ -37,7 +37,7 @@ const handler = (path) => {
   Router.push(path);
 };
 
-const detail = () => {
+const Detail = () => {
   const posts = useRecoilValue(postsState);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
@@ -192,4 +192,4 @@ const detail = () => {
   );
 };
 
-export default detail;
+export default Detail;
