@@ -10,8 +10,15 @@ import {
   Th,
   Thead,
   Tr,
+  Box,
+  Button,
+  Flex,
 } from "@chakra-ui/react";
 import { postsState } from "../atoms/atom";
+import Router from "next/router";
+const handler = (path) => {
+  Router.push(path);
+};
 
 const TodoList = () => {
   const posts = useRecoilValue(postsState);
@@ -22,7 +29,7 @@ const TodoList = () => {
         <Table>
           <Thead bg="#F4EDEA">
             <Tr>
-              <Th>タスク名</Th>
+              <Th>名前</Th>
               <Th>質問内容</Th>
               <Th>作成日時</Th>
             </Tr>
@@ -31,7 +38,7 @@ const TodoList = () => {
           <Tbody>
             {posts.map((post) => (
               <Tr key={post.id}>
-                <Td display="flex" justifyContent="space-between" h="65.5px">
+                <Td h="65.5px">
                   <Link href={`/todos/${post.id}`} passHref>
                     <Text
                       cursor="pointer"
@@ -43,7 +50,27 @@ const TodoList = () => {
                   </Link>
                 </Td>
 
-                <Td>{post.title}</Td>
+                <Td>
+                  <Box display="flex">
+                    <Text lineHeight="40px">{post.title}</Text>
+                    <Button
+                      colorScheme="green"
+                      ml="auto"
+                      mr={2}
+                      onClick={() => handler(`/user/${post.id}/detail`)}
+                    >
+                      詳細
+                    </Button>
+                    <Button
+                      colorScheme="cyan"
+                      color="#FFFFFF"
+                      mr={2}
+                      onClick={() => handler(`/user/${post.id}/answer`)}
+                    >
+                      回答
+                    </Button>
+                  </Box>
+                </Td>
                 <Td>{post.createDate}</Td>
               </Tr>
             ))}
