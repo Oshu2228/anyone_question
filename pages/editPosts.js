@@ -1,30 +1,47 @@
-import { AddIcon, EditIcon, HamburgerIcon } from "@chakra-ui/icons";
+import Link from "next/link";
+import { useRecoilValue } from "recoil";
+
 import {
+  Container,
+  Table,
+  Tbody,
+  Td,
+  Text,
+  Th,
+  Thead,
+  Tr,
   Box,
   Button,
-  Container,
-  Drawer,
-  DrawerBody,
-  DrawerCloseButton,
-  DrawerContent,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerOverlay,
   Flex,
   Heading,
-  Text,
+  Drawer,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
+  DrawerHeader,
+  DrawerBody,
+  Avatar,
+  DrawerFooter,
   useDisclosure,
 } from "@chakra-ui/react";
-import { Avatar } from "@chakra-ui/react";
-import Head from "next/head";
-import React, { useRef } from "react";
-import QuestionList from "./components/QuestionList";
+
 import Router from "next/router";
+import { postsState } from "./atoms/atom";
+import Head from "next/head";
+import {
+  AddIcon,
+  ArrowLeftIcon,
+  CheckIcon,
+  EditIcon,
+  HamburgerIcon,
+} from "@chakra-ui/icons";
+import { useRef } from "react";
 const handler = (path) => {
   Router.push(path);
 };
 
-const user = () => {
+const Edit = () => {
+  const posts = useRecoilValue(postsState);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
 
@@ -118,12 +135,65 @@ const user = () => {
               新規投稿
             </Button>
           </Box>
+          <Container h="100%" maxW="100%" mt="5">
+            <Table>
+              <Thead bg="#F4EDEA">
+                <Tr>
+                  <Th>名前</Th>
+                  <Th>質問内容</Th>
+                  <Th>作成日時</Th>
+                </Tr>
+              </Thead>
 
-          <QuestionList />
+              <Tbody>
+                {posts.map((post) => (
+                  <Tr key={post.id}>
+                    <Td h="65.5px">
+                      <Link href={`/todos/${post.id}`} passHref>
+                        <Text
+                          cursor="pointer"
+                          _hover={{ opacity: 0.7 }}
+                          lineHeight="32.5px"
+                        >
+                          {post.name}
+                        </Text>
+                      </Link>
+                    </Td>
+
+                    <Td>
+                      <Box display="flex">
+                        <Text lineHeight="40px">{post.title}</Text>
+                        <Button
+                          colorScheme="green"
+                          ml="auto"
+                          mr={2}
+                          onClick={() => handler(`/user/${post.id}/edit`)}
+                        >
+                          編集
+                        </Button>
+                      </Box>
+                    </Td>
+                    <Td>{post.createDate}</Td>
+                  </Tr>
+                ))}
+              </Tbody>
+            </Table>
+          </Container>
+          <Box pos="absolute" bottom="8" right="0">
+            <Button
+              background="#F4D1AE"
+              _hover={{ opacity: "0.8" }}
+              onClick={() => handler("/editPosts")}
+             mr={8}
+            >
+              <ArrowLeftIcon mr="2" />
+              戻る
+            </Button>
+          </Box>
         </Container>
       </Container>
     </>
   );
 };
 
-export default user;
+export default Edit;

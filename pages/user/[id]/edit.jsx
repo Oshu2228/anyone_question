@@ -1,3 +1,4 @@
+import React, { useRef } from "react";
 import {
   AddIcon,
   ArrowLeftIcon,
@@ -22,7 +23,6 @@ import {
   FormLabel,
   Heading,
   Input,
-  Select,
   Spacer,
   Stack,
   Text,
@@ -32,74 +32,24 @@ import {
 } from "@chakra-ui/react";
 import { Avatar } from "@chakra-ui/react";
 import Head from "next/head";
-import React, { useRef, useState } from "react";
 import Router, { useRouter } from "next/router";
-import { useRecoilState } from "recoil";
-import { pushQuestion } from "./firebase";
-import { postsState } from "./atoms/atom";
+import { useRecoilValue } from "recoil";
+import { postsState } from "../../atoms/atom";
 
 const handler = (path) => {
   Router.push(path);
 };
 
-const user = () => {
-  const [posts, setPosts] = useRecoilState(postsState);
-  const [addName, setAddName] = useState("");
-  const [addTitle, setAddTitle] = useState("");
-  const [addText, setAddText] = useState("");
-  const router = useRouter();
-  const toast = useToast();
-
-  const handleInputName = (e) => {
-    setAddName(e.target.value);
-  };
-  const handleInputTitle = (e) => {
-    setAddTitle(e.target.value);
-  };
-  const handleInputText = (e) => {
-    setAddText(e.target.value);
-  };
-
-  const addId = posts[posts.length - 1].id + 1;
-
-  const today = () => {
-    const year = new Date().getFullYear() + "-";
-    const month = new Date().getMonth() * 1 + 1 + "-";
-    const date = new Date().getDate();
-    return year + month + date;
-  };
-
-  const newQuestion = (e) => {
-    e.preventDefault();
-    setPosts([
-      ...posts,
-      {
-        id: addId,
-        name: addName,
-        title: addTitle,
-        text: addText,
-        createDate: today(),
-      },
-    ]);
-
-    if (addName === "" || addTitle === "" || addText === "") {
-      return toast({
-        title: "空欄の項目があります",
-        position: "top",
-        status: "warning",
-        duration: 2000,
-        isClosable: true,
-      });
-    }
-    pushQuestion({ name: addName, title: addTitle, text: addText });
-    setAddName("");
-    setAddTitle("");
-    setAddText("");
-    router.push("/user");
-  };
-
+const Detail = () => {
+  const posts = useRecoilValue(postsState);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
+  const router = useRouter();
+
+  const post = posts.filter((post) => {
+    return post.id === Number(router.query.id);
+  });
+
 
   return (
     <>
@@ -152,7 +102,6 @@ const user = () => {
                     alignItems="center"
                     mb="16px"
                     _hover={{ background: "#8FBFE0", borderRadius: "20px" }}
-                    onClick={() => handler("/editPosts")}
                   >
                     <EditIcon mr="8px" />
                     <Text lineHeight="48px">作成した質問を編集</Text>
@@ -195,8 +144,8 @@ const user = () => {
                         ml={[0, 6]}
                         borderColor="#bebaba"
                         borderWidth="2px"
-                        value={addName}
-                        onChange={handleInputName}
+                        value={post[0]?.name}
+                        // onChange={}
                       />
                     </Box>
                   </Flex>
@@ -214,8 +163,8 @@ const user = () => {
                         ml={[0, 6]}
                         borderColor="#bebaba"
                         borderWidth="2px"
-                        value={addTitle}
-                        onChange={handleInputTitle}
+                        value={post[0]?.title}
+                        // onChange={}
                       />
                     </Box>
                   </Flex>
@@ -233,8 +182,8 @@ const user = () => {
                       borderColor="#bebaba"
                       borderWidth="2px"
                       h="180px"
-                      value={addText}
-                      onChange={handleInputText}
+                      value={post[0]?.text}
+                      // onChange={}
                     />
                   </Flex>
                 </FormControl>
@@ -242,11 +191,12 @@ const user = () => {
               </Stack>
             </Container>
             <Spacer />
+          </form>
             <Box pos="absolute" bottom="8" right="0">
               <Button
                 background="#F4D1AE"
                 _hover={{ opacity: "0.8" }}
-                onClick={() => handler("/user")}
+                onClick={() => handler("/editPosts")}
                 mr="2"
               >
                 <ArrowLeftIcon mr="2" />
@@ -257,17 +207,16 @@ const user = () => {
                 color="#FFFFFF"
                 mr="28px"
                 type="submit"
-                onClick={newQuestion}
+                // onClick={newQuestion}
               >
                 <CheckIcon mr="2" />
                 保存
               </Button>
             </Box>
-          </form>
         </Container>
       </Container>
     </>
   );
 };
 
-export default user;
+export default Detail;
