@@ -52,8 +52,8 @@ const Edit = () => {
     return post.id === Number(router.query.id);
   });
 
-  const [newTitle, setNewTitle] = useState(editPost[0].title);
-  const [newText, setNewText] = useState(editPost[0].text);
+  const [newTitle, setNewTitle] = useState(editPost[0]?.title);
+  const [newText, setNewText] = useState(editPost[0]?.text);
 
   const handleSetNewTitle = (e) => {
     setNewTitle(e.target.value);
@@ -64,15 +64,15 @@ const Edit = () => {
 
   const handleEditPost = (id, title, text) => {
     const foundPost = posts.findIndex((post) => post.id === id);
-    // if(title === "" || text === ""){
-    //   return toast({
-    //     title: "文字を入力してください",
-    //     position: "top",
-    //     status: 'warning',
-    //     duration: 2000,
-    //     isClosable: true,
-    //   });
-    // }
+    if (title === "" || text === "") {
+      return toast({
+        title: "文字を入力してください",
+        position: "top",
+        status: "warning",
+        duration: 2000,
+        isClosable: true,
+      });
+    }
 
     const replaceItemAtIndex = (posts, foundPost, newValue) => {
       return [
@@ -83,17 +83,15 @@ const Edit = () => {
     };
 
     setPosts(() => {
-      
-        return replaceItemAtIndex(posts, foundPost, {
-          ...posts[foundPost],
-          title: title,
-          text: text,
-        });
-      
+      return replaceItemAtIndex(posts, foundPost, {
+        ...posts[foundPost],
+        title: title,
+        text: text,
+      });
     });
 
     pushQuestion({ name: editPost[0]?.name, title: newTitle, text: newText });
-    
+
     toast({
       title: "保存しました.",
       position: "top",
@@ -101,12 +99,27 @@ const Edit = () => {
       duration: 1000,
       isClosable: true,
     });
-    router.push("/user");
+    router.push("/editPosts");
   };
-  
 
-  
+  const handleDeletePost = (id) => {
+    const result = window.confirm("本当に削除してもよろしいですか?");
+    if (result) {
+      const foundPost = posts.findIndex((post) => post.id === id);
+      const deletePost = [...posts];
+      deletePost.splice(foundPost, 1);
+      setPosts(deletePost);
 
+      toast({
+        title: "削除しました.",
+        position: "top",
+        status: "error",
+        duration: 1000,
+        isClosable: true,
+      });
+      router.push("/editPosts");
+    }
+  };
 
   return (
     <>
@@ -189,7 +202,7 @@ const Edit = () => {
           <form>
             <Container py={["20px", "60px"]} maxW="container.lg">
               <Stack spacing={[2, 6]}>
-              <FormControl>
+                <FormControl>
                   <Flex direction={["column", "row"]}>
                     <Flex minW={24} width={24}>
                       <FormLabel>名前</FormLabel>
@@ -241,31 +254,34 @@ const Edit = () => {
             </Container>
             <Spacer />
           </form>
-            <Box pos="absolute" bottom="8" right="0">
-              <Button
-                background="#F4D1AE"
-                _hover={{ opacity: "0.8" }}
-                onClick={() => handler("/editPosts")}
-                mr="2"
-              >
-                <ArrowLeftIcon mr="2" />
-                戻る
-              </Button>
-              <Button
-                colorScheme="blue"
-                color="#FFFFFF"
-                mr="28px"
-                type="submit"
-                onClick={()=>handleEditPost(
-                  editPost[0]?.id,
-                  newTitle,
-                  newText
-                )}
-              >
-                <CheckIcon mr="2" />
-                保存
-              </Button>
-            </Box>
+          <Box pos="absolute" bottom="8" right="0">
+            <Button
+              background="#F4D1AE"
+              _hover={{ opacity: "0.8" }}
+              onClick={() => handler("/editPosts")}
+              mr="2"
+            >
+              <ArrowLeftIcon mr="2" />
+              戻る
+            </Button>
+            <Button
+              colorScheme="red"
+              onClick={() => handleDeletePost(editPost[0]?.id)}
+              mr="2"
+            >
+              削除する
+            </Button>
+            <Button
+              colorScheme="blue"
+              color="#FFFFFF"
+              mr="28px"
+              type="submit"
+              onClick={() => handleEditPost(editPost[0]?.id, newTitle, newText)}
+            >
+              <CheckIcon mr="2" />
+              保存
+            </Button>
+          </Box>
         </Container>
       </Container>
     </>
