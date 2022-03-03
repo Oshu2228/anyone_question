@@ -35,6 +35,7 @@ import Head from "next/head";
 import Router, { useRouter } from "next/router";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { postsState } from "../../atoms/atom";
+import { pushQuestion } from "../../firebase";
 
 const handler = (path) => {
   Router.push(path);
@@ -91,6 +92,8 @@ const Edit = () => {
       
     });
 
+    pushQuestion({ name: editPost[0]?.name, title: newTitle, text: newText });
+    
     toast({
       title: "保存しました.",
       position: "top",
@@ -98,6 +101,7 @@ const Edit = () => {
       duration: 1000,
       isClosable: true,
     });
+    router.push("/user");
   };
   
 
