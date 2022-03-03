@@ -183,7 +183,7 @@ const Edit = () => {
             <Button
               background="#F4D1AE"
               _hover={{ opacity: "0.8" }}
-              onClick={() => handler("/editPosts")}
+              onClick={() => handler("/user")}
              mr={8}
             >
               <ArrowLeftIcon mr="2" />
