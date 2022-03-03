@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import {
   AddIcon,
   ArrowLeftIcon,
@@ -33,22 +33,79 @@ import {
 import { Avatar } from "@chakra-ui/react";
 import Head from "next/head";
 import Router, { useRouter } from "next/router";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { postsState } from "../../atoms/atom";
+import { pushQuestion } from "../../firebase";
 
 const handler = (path) => {
   Router.push(path);
 };
 
-const Detail = () => {
-  const posts = useRecoilValue(postsState);
+const Edit = () => {
+  const [posts, setPosts] = useRecoilState(postsState);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
   const router = useRouter();
+  const toast = useToast();
 
-  const post = posts.filter((post) => {
+  const editPost = posts.filter((post) => {
     return post.id === Number(router.query.id);
   });
+
+  const [newTitle, setNewTitle] = useState(editPost[0].title);
+  const [newText, setNewText] = useState(editPost[0].text);
+
+  const handleSetNewTitle = (e) => {
+    setNewTitle(e.target.value);
+  };
+  const handleSetNewText = (e) => {
+    setNewText(e.target.value);
+  };
+
+  const handleEditPost = (id, title, text) => {
+    const foundPost = posts.findIndex((post) => post.id === id);
+    // if(title === "" || text === ""){
+    //   return toast({
+    //     title: "文字を入力してください",
+    //     position: "top",
+    //     status: 'warning',
+    //     duration: 2000,
+    //     isClosable: true,
+    //   });
+    // }
+
+    const replaceItemAtIndex = (posts, foundPost, newValue) => {
+      return [
+        ...posts.slice(0, foundPost),
+        newValue,
+        ...posts.slice(foundPost + 1),
+      ];
+    };
+
+    setPosts(() => {
+      
+        return replaceItemAtIndex(posts, foundPost, {
+          ...posts[foundPost],
+          title: title,
+          text: text,
+        });
+      
+    });
+
+    pushQuestion({ name: editPost[0]?.name, title: newTitle, text: newText });
+    
+    toast({
+      title: "保存しました.",
+      position: "top",
+      status: "success",
+      duration: 1000,
+      isClosable: true,
+    });
+    router.push("/user");
+  };
+  
+
+  
 
 
   return (
@@ -132,22 +189,14 @@ const Detail = () => {
           <form>
             <Container py={["20px", "60px"]} maxW="container.lg">
               <Stack spacing={[2, 6]}>
-                <FormControl>
+              <FormControl>
                   <Flex direction={["column", "row"]}>
                     <Flex minW={24} width={24}>
                       <FormLabel>名前</FormLabel>
                       <Spacer />
                       <Box>:</Box>
                     </Flex>
-                    <Box>
-                      <Input
-                        ml={[0, 6]}
-                        borderColor="#bebaba"
-                        borderWidth="2px"
-                        value={post[0]?.name}
-                        // onChange={}
-                      />
-                    </Box>
+                    <Box ml={3}>{editPost[0]?.name}</Box>
                   </Flex>
                 </FormControl>
                 <Divider borderColor="gray" borderBottomWidth="2px" />
@@ -163,8 +212,8 @@ const Detail = () => {
                         ml={[0, 6]}
                         borderColor="#bebaba"
                         borderWidth="2px"
-                        value={post[0]?.title}
-                        // onChange={}
+                        value={newTitle}
+                        onChange={handleSetNewTitle}
                       />
                     </Box>
                   </Flex>
@@ -182,8 +231,8 @@ const Detail = () => {
                       borderColor="#bebaba"
                       borderWidth="2px"
                       h="180px"
-                      value={post[0]?.text}
-                      // onChange={}
+                      value={newText}
+                      onChange={handleSetNewText}
                     />
                   </Flex>
                 </FormControl>
@@ -207,7 +256,11 @@ const Detail = () => {
                 color="#FFFFFF"
                 mr="28px"
                 type="submit"
-                // onClick={newQuestion}
+                onClick={()=>handleEditPost(
+                  editPost[0]?.id,
+                  newTitle,
+                  newText
+                )}
               >
                 <CheckIcon mr="2" />
                 保存
@@ -219,4 +272,4 @@ const Detail = () => {
   );
 };
 
-export default Detail;
+export default Edit;
