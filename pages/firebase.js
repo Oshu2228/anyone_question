@@ -1,4 +1,5 @@
 import firebase from "firebase";
+import 'firebase/auth';
 
 const firebaseConfig = {
   apiKey: "AIzaSyCJ101C9JnMbyefVZiJregrm2n1aoVMK98",
@@ -10,9 +11,12 @@ const firebaseConfig = {
   appId: "1:266126378334:web:620616f3cfa6cff89cfbcf",
 };
 
-firebase.initializeApp(firebaseConfig);
+if (firebase.apps.length === 0) {
+  firebase.initializeApp(firebaseConfig);
+}
 const database = firebase.database();
 const questionRef = database.ref("questions");
+export const auth = firebase.auth();
 
 export const pushQuestion = ({ name, title, text }) => {
   questionRef.push({ name, title, text });
