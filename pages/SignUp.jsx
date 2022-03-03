@@ -14,14 +14,15 @@ import { LockIcon } from "@chakra-ui/icons";
 import Router, { useRouter } from "next/router";
 import { auth } from "./firebase";
 import { useAuthContext } from "./context/AuthContext";
+import Link from "next/link";
 const handler = (path) => {
   Router.push(path);
 };
 
 const Login = () => {
   const { user } = useAuthContext();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const router = useRouter();
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -34,7 +35,6 @@ const Login = () => {
   };
   const handleChangePassword = (event) => {
     setPassword(event.currentTarget.value);
-   
   };
 
   return (
@@ -72,17 +72,29 @@ const Login = () => {
                 </Text>
               </Box>
               <Stack spacing={6} py={4} px={10}>
-                <Input name="email" type="email" placeholder="email" onChange={handleChangeEmail}/>
-                <Input name="password" type="password" placeholder="password" onChange={handleChangePassword}/>
+                <Input
+                  name="email"
+                  type="email"
+                  placeholder="email"
+                  onChange={handleChangeEmail}
+                />
+                <Input
+                  name="password"
+                  type="password"
+                  placeholder="password"
+                  onChange={handleChangePassword}
+                />
                 <Button colorScheme="blue" onClick={handleSubmit}>
                   登録
                 </Button>
+                <Box color="#3399FF" fontSize="12px" _hover={{ opacity: "0.5" }} >
+                  <Link href="/">
+                    <a>ユーザー登録済みの方はこちらから</a>
+                  </Link>
+                </Box>
               </Stack>
             </Box>
           </Flex>
-          <Box>
-            ユーザー登録はこちらから
-          </Box>
         </Container>
       </Container>
     </>
