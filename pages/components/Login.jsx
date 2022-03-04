@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { LockIcon } from "@chakra-ui/icons";
 import { useRouter } from "next/router";
-import { auth } from "../firebase";
+import { auth, provider } from "../firebase";
 import Link from "next/link";
 
 const Login = () => {
@@ -24,6 +24,16 @@ const Login = () => {
     event.preventDefault();
     try {
       await auth.signInWithEmailAndPassword(email, password);
+      router.push("/user");
+    } catch (error) {
+      console.log(error);
+      setError(error.message);
+    }
+  };
+
+  const handleGoogleLogin = async (event) => {
+    try {
+      await auth.signInWithPopup(provider);
       router.push("/user");
     } catch (error) {
       console.log(error);
@@ -92,7 +102,14 @@ const Login = () => {
                 <Button colorScheme="blue" onClick={handleSubmit}>
                   ログイン
                 </Button>
-                <Box color="#3399FF" fontSize="12px" _hover={{ opacity: "0.5" }}>
+                <Button colorScheme="teal" onClick={handleGoogleLogin}>
+                  Googleアカウントをお持ちの方
+                </Button>
+                <Box
+                  color="#3399FF"
+                  fontSize="12px"
+                  _hover={{ opacity: "0.5" }}
+                >
                   <Link href="/SignUp">
                     <a>ユーザー登録はこちらから</a>
                   </Link>

@@ -16,6 +16,7 @@ if (firebase.apps.length === 0) {
 }
 const database = firebase.database();
 const questionRef = database.ref("questions");
+export const provider = new firebase.auth.GoogleAuthProvider(); 
 export const auth = firebase.auth();
 
 export const pushQuestion = ({ name, title, text }) => {
