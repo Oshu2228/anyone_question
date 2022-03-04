@@ -23,12 +23,17 @@ const Login = () => {
   const { user } = useAuthContext();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const router = useRouter();
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(email, password);
-    auth.createUserWithEmailAndPassword(email, password);
-    router.push("/user");
+    try {
+      await auth.createUserWithEmailAndPassword(email, password);
+      router.push("/user");
+    } catch (error) {
+      console.log(error);
+      setError(error.message);
+    }
   };
   const handleChangeEmail = (event) => {
     setEmail(event.currentTarget.value);
@@ -84,6 +89,11 @@ const Login = () => {
                   placeholder="password"
                   onChange={handleChangePassword}
                 />
+                 {error && (
+                  <p style={{ color: "red" }}>
+                    無効な設定です
+                  </p>
+                )}
                 <Button colorScheme="blue" onClick={handleSubmit}>
                   登録
                 </Button>
