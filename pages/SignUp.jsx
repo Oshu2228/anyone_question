@@ -11,11 +11,16 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { LockIcon } from "@chakra-ui/icons";
-import { useRouter } from "next/router";
-import { auth, provider } from "../firebase";
+import Router, { useRouter } from "next/router";
+import { auth } from "./firebase";
+import { useAuthContext } from "./context/AuthContext";
 import Link from "next/link";
+const handler = (path) => {
+  Router.push(path);
+};
 
 const Login = () => {
+  const { user } = useAuthContext();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -23,17 +28,7 @@ const Login = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await auth.signInWithEmailAndPassword(email, password);
-      router.push("/user");
-    } catch (error) {
-      console.log(error);
-      setError(error.message);
-    }
-  };
-
-  const handleGoogleLogin = async (event) => {
-    try {
-      await auth.signInWithPopup(provider);
+      await auth.createUserWithEmailAndPassword(email, password);
       router.push("/user");
     } catch (error) {
       console.log(error);
@@ -78,7 +73,7 @@ const Login = () => {
               <Box textAlign="center">
                 <LockIcon boxSize={8} />
                 <Text fontWeight="bold" fontSize="24px">
-                  Log In
+                  Sign In
                 </Text>
               </Box>
               <Stack spacing={6} py={4} px={10}>
@@ -94,24 +89,17 @@ const Login = () => {
                   placeholder="password"
                   onChange={handleChangePassword}
                 />
-                {error && (
+                 {error && (
                   <p style={{ color: "red" }}>
-                    メールアドレスとパスワードが一致していません
+                    無効な設定です
                   </p>
                 )}
                 <Button colorScheme="blue" onClick={handleSubmit}>
-                  ログイン
+                  登録
                 </Button>
-                <Button colorScheme="teal" onClick={handleGoogleLogin}>
-                  Googleアカウントをお持ちの方
-                </Button>
-                <Box
-                  color="#3399FF"
-                  fontSize="12px"
-                  _hover={{ opacity: "0.5" }}
-                >
-                  <Link href="/SignUp">
-                    <a>ユーザー登録はこちらから</a>
+                <Box color="#3399FF" fontSize="12px" _hover={{ opacity: "0.5" }} >
+                  <Link href="/">
+                    <a>ユーザー登録済みの方はこちらから</a>
                   </Link>
                 </Box>
               </Stack>

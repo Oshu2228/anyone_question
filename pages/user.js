@@ -19,12 +19,18 @@ import { Avatar } from "@chakra-ui/react";
 import Head from "next/head";
 import React, { useRef } from "react";
 import QuestionList from "./components/QuestionList";
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
+import { auth } from "./firebase";
 const handler = (path) => {
   Router.push(path);
 };
 
 const user = () => {
+  const router = useRouter();
+  const handleLogout = () => {
+    auth.signOut();
+    router.push("/");
+  };
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
 
@@ -89,7 +95,7 @@ const user = () => {
                     <Button
                       mt="40px"
                       colorScheme="red"
-                      onClick={() => handler("/")}
+                      onClick={handleLogout}
                     >
                       Log Out
                     </Button>
