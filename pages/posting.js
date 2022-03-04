@@ -91,7 +91,12 @@ const user = () => {
         isClosable: true,
       });
     }
-    pushQuestion({ name: addName, title: addTitle, text: addText });
+    pushQuestion({
+      name: addName,
+      title: addTitle,
+      text: addText,
+      createDate: today(),
+    });
     setAddName("");
     setAddTitle("");
     setAddText("");

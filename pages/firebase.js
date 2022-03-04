@@ -19,6 +19,6 @@ const questionRef = database.ref("questions");
 export const provider = new firebase.auth.GoogleAuthProvider(); 
 export const auth = firebase.auth();
 
-export const pushQuestion = ({ name, title, text }) => {
-  questionRef.push({ name, title, text });
+export const pushQuestion = ({ name, title, text,createDate }) => {
+  questionRef.push({ name, title, text , createDate});
 };
