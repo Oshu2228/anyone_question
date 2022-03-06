@@ -1,8 +1,11 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import { RecoilRoot } from "recoil";
+import { AuthProvider } from "../src/context/AuthContext";
+
 import "../styles/globals.css";
-import { AuthProvider } from "./context/AuthContext";
-import theme from "./theme/theme";
+import theme from "../theme/theme";
+
+
 
 function MyApp({ Component, pageProps }) {
   return (

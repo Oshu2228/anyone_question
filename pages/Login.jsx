@@ -1,5 +1,5 @@
 import Head from "next/head";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import {
   Box,
   Button,
@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { LockIcon } from "@chakra-ui/icons";
 import { useRouter } from "next/router";
-import { auth, provider } from "../firebase";
+import { auth, provider } from "../src/base/firebase";
 import Link from "next/link";
 
 const Login = () => {

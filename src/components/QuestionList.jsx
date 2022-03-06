@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { useRecoilValue } from "recoil";
-
 import {
   Container,
   Table,
@@ -11,20 +10,21 @@ import {
   Thead,
   Tr,
   Box,
-  Button,
-  Flex,
 } from "@chakra-ui/react";
-import { postsState } from "../atoms/atom";
 import Router from "next/router";
-const handler = (path) => {
-  Router.push(path);
-};
+import {postsState} from "../atoms/atom"
+import UserButton from "./atoms/button/UserButton";
+import AddButton from "./atoms/button/AddButton"
 
 const TodoList = () => {
   const posts = useRecoilValue(postsState);
+  // const handler = (path) => {
+  //   Router.push(path);
+  // };
 
   return (
     <>
+      <AddButton />
       <Container h="100%" maxW="100%" mt="5">
         <Table>
           <Thead bg="#F4EDEA">
@@ -53,22 +53,18 @@ const TodoList = () => {
                 <Td>
                   <Box display="flex">
                     <Text lineHeight="40px">{post.title}</Text>
-                    <Button
-                      colorScheme="green"
-                      ml="auto"
-                      mr={2}
-                      onClick={() => handler(`/user/${post.id}/detail`)}
-                    >
-                      詳細
-                    </Button>
-                    <Button
-                      colorScheme="cyan"
-                      color="#FFFFFF"
-                      mr={2}
-                      onClick={() => handler(`/user/${post.id}/answer`)}
-                    >
-                      回答
-                    </Button>
+                    <Box ml="auto">
+                      <UserButton
+                        colorScheme={"purple"}
+                        text={"詳細"}
+                        onClick={() => handler(`/user/${post.id}/detail`)}
+                      />
+                      <UserButton
+                        colorScheme={"teal"}
+                        text={"回答"}
+                        onClick={() => handler(`/user/${post.id}/answer`)}
+                      />
+                    </Box>
                   </Box>
                 </Td>
                 <Td>{post.createDate}</Td>
