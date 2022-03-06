@@ -17,7 +17,7 @@ import {
 import { Avatar } from "@chakra-ui/react";
 import  Router, { useRouter }  from "next/router";
 import { useRef } from "react";
-import { auth } from "../../pages/firebase";
+import { auth } from "../base/firebase";
 const handler = (path) => {
   Router.push(path);
 };

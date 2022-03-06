@@ -86,9 +86,7 @@ const Edit = () => {
 
                         <EditButton
                           onClick={() => handler(`/user/${post.id}/edit`)}
-                       />
-                        
-
+                        />
                       </Box>
                     </Td>
                     <Td>{post.createDate}</Td>
