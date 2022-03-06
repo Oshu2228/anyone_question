@@ -17,7 +17,7 @@ import React, { useState } from "react";
 import Router, { useRouter } from "next/router";
 import { useRecoilState } from "recoil";
 import { pushQuestion } from "../src/base/firebase";
-import { postsState } from "./atoms/atom";
+import { postsState } from "../src/atoms/atom";
 import Header from "../src/components/Header";
 import BackButton from "../src/components/atoms/button/BackButton";
 import SaveButton from "../src/components/atoms/button/SaveButton";

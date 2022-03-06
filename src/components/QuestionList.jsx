@@ -12,7 +12,7 @@ import {
   Box,
   Button,
 } from "@chakra-ui/react";
-import { postsState } from "../../pages/atoms/atom";
+import { postsState } from "../atoms/atom";
 import Router from "next/router";
 import { AddIcon } from "@chakra-ui/icons";
 import DetailButton from "./atoms/button/DetailButton";

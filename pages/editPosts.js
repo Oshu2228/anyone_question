@@ -15,7 +15,7 @@ import {
 } from "@chakra-ui/react";
 
 import Router from "next/router";
-import { postsState } from "./atoms/atom";
+import { postsState } from "../src/atoms/atom";
 import Head from "next/head";
 import { AddIcon } from "@chakra-ui/icons";
 import Header from "../src/components/Header";
