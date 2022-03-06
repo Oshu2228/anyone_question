@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { useRecoilValue } from "recoil";
-
 import {
   Container,
   Table,
@@ -12,10 +11,12 @@ import {
   Tr,
   Box,
   Button,
-  Flex,
 } from "@chakra-ui/react";
-import { postsState } from "../atoms/atom";
+import { postsState } from "../../pages/atoms/atom";
 import Router from "next/router";
+import { AddIcon } from "@chakra-ui/icons";
+import DetailButton from "./atoms/button/DetailButton";
+import AnswerButton from "./atoms/button/AnswerButton";
 const handler = (path) => {
   Router.push(path);
 };
@@ -25,6 +26,16 @@ const TodoList = () => {
 
   return (
     <>
+      <Box mt="10" mr="5" textAlign="right">
+        <Button
+          background="#F4D1AE"
+          _hover={{ opacity: "0.8" }}
+          onClick={() => handler("/posting")}
+        >
+          <AddIcon mr="2" />
+          新規投稿
+        </Button>
+      </Box>
       <Container h="100%" maxW="100%" mt="5">
         <Table>
           <Thead bg="#F4EDEA">
@@ -53,22 +64,13 @@ const TodoList = () => {
                 <Td>
                   <Box display="flex">
                     <Text lineHeight="40px">{post.title}</Text>
-                    <Button
-                      colorScheme="green"
-                      ml="auto"
-                      mr={2}
+
+                    <DetailButton
                       onClick={() => handler(`/user/${post.id}/detail`)}
-                    >
-                      詳細
-                    </Button>
-                    <Button
-                      colorScheme="cyan"
-                      color="#FFFFFF"
-                      mr={2}
+                    />
+                    <AnswerButton
                       onClick={() => handler(`/user/${post.id}/answer`)}
-                    >
-                      回答
-                    </Button>
+                    />
                   </Box>
                 </Td>
                 <Td>{post.createDate}</Td>

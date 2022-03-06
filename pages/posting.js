@@ -1,4 +1,3 @@
-import { ArrowLeftIcon, CheckIcon } from "@chakra-ui/icons";
 import {
   Box,
   Container,
@@ -22,10 +21,6 @@ import { postsState } from "./atoms/atom";
 import Header from "../src/components/Header";
 import BackButton from "../src/components/atoms/button/BackButton";
 import SaveButton from "../src/components/atoms/button/SaveButton";
-
-const handler = (path) => {
-  Router.push(path);
-};
 
 const user = () => {
   const [posts, setPosts] = useRecoilState(postsState);

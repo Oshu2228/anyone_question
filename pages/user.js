@@ -1,43 +1,9 @@
-import { AddIcon, EditIcon, HamburgerIcon } from "@chakra-ui/icons";
-import {
-  Box,
-  Button,
-  Container,
-  Drawer,
-  DrawerBody,
-  DrawerCloseButton,
-  DrawerContent,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerOverlay,
-  Flex,
-  Heading,
-  Text,
-  useDisclosure,
-} from "@chakra-ui/react";
-import { Avatar } from "@chakra-ui/react";
+import { Container } from "@chakra-ui/react";
 import Head from "next/head";
-import React, { useRef } from "react";
-import QuestionList from "./components/QuestionList";
-import Router, { useRouter } from "next/router";
-import { auth } from "./firebase";
-import { useRecoilState } from "recoil";
-import { postsState } from "./atoms/atom";
+import QuestionList from "../src/components/QuestionList";
 import Header from "../src/components/Header";
-const handler = (path) => {
-  Router.push(path);
-};
 
 const user = () => {
-  const [posts, setPosts] = useRecoilState(postsState);
-  const router = useRouter();
-  const handleLogout = () => {
-    auth.signOut();
-    router.push("/");
-  };
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const btnRef = useRef();
-
   return (
     <>
       <Head>
@@ -56,17 +22,6 @@ const user = () => {
         <Header />
 
         <Container minH="calc(100% - 64px)" maxW="100%" bg="white" padding="5">
-          <Box mt="10" mr="5" textAlign="right">
-            <Button
-              background="#F4D1AE"
-              _hover={{ opacity: "0.8" }}
-              onClick={() => handler("/posting")}
-            >
-              <AddIcon mr="2" />
-              新規投稿
-            </Button>
-          </Box>
-
           <QuestionList />
         </Container>
       </Container>
