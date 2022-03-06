@@ -17,6 +17,8 @@ import { useRecoilValue } from "recoil";
 import { postsState } from "../../../src/atoms/atom";
 import styles from "../../../styles/Container.module.css";
 import Header from "../../../src/components/Header";
+import BackButton from "../../../src/components/atoms/button/BackButton"
+
 
 const handler = (path) => {
   Router.push(path);
@@ -90,15 +92,7 @@ const Detail = () => {
             </Stack>
 
             <Box pos="absolute" bottom="8" right="0">
-              <Button
-                background="#F4D1AE"
-                _hover={{ opacity: "0.8" }}
-                onClick={() => handler("/user")}
-                mr="2"
-              >
-                <ArrowLeftIcon mr="2" />
-                戻る
-              </Button>
+            <BackButton onClick={() => handler("/user")}/>
               <Button
                 colorScheme="cyan"
                 color="#FFFFFF"

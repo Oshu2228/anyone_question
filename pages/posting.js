@@ -19,8 +19,11 @@ import { pushQuestion } from "../src/base/firebase";
 import { postsState } from "../src/atoms/atom";
 import Header from "../src/components/Header";
 import BackButton from "../src/components/atoms/button/BackButton";
-import SaveButton from "../src/components/atoms/button/SaveButton";
-import styles from "../styles/Container.module.css"
+import UserButton from "../src/components/atoms/button/UserButton";
+import styles from "../styles/Container.module.css";
+const handler = (path) => {
+  Router.push(path);
+};
 
 const user = () => {
   const [posts, setPosts] = useRecoilState(postsState);
@@ -164,8 +167,11 @@ const user = () => {
             </Container>
             <Spacer />
             <Box pos="absolute" bottom="8" right="0">
-              <BackButton />
-              <SaveButton onClick={newQuestion} />
+              <BackButton onClick={() => handler("/user")} />
+              <UserButton 
+              text={"保存"}
+              colorScheme={"blue"}
+              onClick={newQuestion} />
             </Box>
           </form>
         </Container>

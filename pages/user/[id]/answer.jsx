@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { ArrowLeftIcon } from "@chakra-ui/icons";
 import {
   Box,
@@ -20,6 +20,7 @@ import { useRecoilState } from "recoil";
 import Header from "../../../src/components/Header";
 import styles from "../../../styles/Container.module.css";
 import { postsState } from "../../../src/atoms/atom";
+import BackButton from "../../../src/components/atoms/button/BackButton";
 
 const handler = (path) => {
   Router.push(path);
@@ -121,17 +122,8 @@ const Answer = () => {
                 </Stack>
               </RadioGroup>
             </Stack>
-
             <Box pos="absolute" bottom="8" right="0">
-              <Button
-                background="#F4D1AE"
-                _hover={{ opacity: "0.8" }}
-                onClick={() => handler("/user")}
-                mr="2"
-              >
-                <ArrowLeftIcon mr="2" />
-                戻る
-              </Button>
+            <BackButton onClick={() => handler("/user")}/>
               <Button
                 colorScheme="linkedin"
                 color="#FFFFFF"

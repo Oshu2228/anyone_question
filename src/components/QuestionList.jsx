@@ -15,8 +15,7 @@ import {
 import { postsState } from "../atoms/atom";
 import Router from "next/router";
 import { AddIcon } from "@chakra-ui/icons";
-import DetailButton from "./atoms/button/DetailButton";
-import AnswerButton from "./atoms/button/AnswerButton";
+import UserButton from "./atoms/button/UserButton";
 const handler = (path) => {
   Router.push(path);
 };
@@ -64,13 +63,18 @@ const TodoList = () => {
                 <Td>
                   <Box display="flex">
                     <Text lineHeight="40px">{post.title}</Text>
-
-                    <DetailButton
-                      onClick={() => handler(`/user/${post.id}/detail`)}
-                    />
-                    <AnswerButton
-                      onClick={() => handler(`/user/${post.id}/answer`)}
-                    />
+                    <Box ml="auto">
+                      <UserButton
+                        colorScheme={"purple"}
+                        text={"詳細"}
+                        onClick={() => handler(`/user/${post.id}/detail`)}
+                      />
+                      <UserButton
+                        colorScheme={"teal"}
+                        text={"回答"}
+                        onClick={() => handler(`/user/${post.id}/answer`)}
+                      />
+                    </Box>
                   </Box>
                 </Td>
                 <Td>{post.createDate}</Td>

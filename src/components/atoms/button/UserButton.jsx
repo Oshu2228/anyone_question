@@ -1,20 +1,20 @@
 import { Button } from "@chakra-ui/react";
 import React from "react";
 
-const DetailButton = (props) => {
-  const {onClick} = props
+const UserButton = (props) => {
+  const {onClick,colorScheme,text} = props
   return (
     <>
       <Button
-        colorScheme="green"
         ml="auto"
-        mr={2}
+        mr={8}
+        colorScheme={colorScheme}
         onClick={onClick}
       >
-        詳細
+       {text}
       </Button>
     </>
   );
 };
 
-export default DetailButton;
+export default UserButton;

@@ -21,6 +21,7 @@ import { useRecoilState } from "recoil";
 import Header from "../../../src/components/Header";
 import styles from "../../../styles/Container.module.css";
 import { postsState } from "../../../src/atoms/atom";
+import UserButton from "../../../src/components/atoms/button/UserButton";
 
 const handler = (path) => {
   Router.push(path);
@@ -196,16 +197,11 @@ const Edit = () => {
             >
               削除する
             </Button>
-            <Button
-              colorScheme="blue"
-              color="#FFFFFF"
-              mr="28px"
-              type="submit"
-              onClick={() => handleEditPost(editPost[0]?.id, newTitle, newText)}
-            >
-              <CheckIcon mr="2" />
-              保存
-            </Button>
+            <UserButton
+              colorScheme={"blue"}
+              text={"保存"}
+              onClick={()=>handleEditPost(editPost[0]?.id,newTitle,newText)}
+            />
           </Box>
         </Container>
       </Container>
