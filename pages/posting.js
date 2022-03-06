@@ -1,7 +1,6 @@
 import { ArrowLeftIcon, CheckIcon } from "@chakra-ui/icons";
 import {
   Box,
-  Button,
   Container,
   Divider,
   Flex,
@@ -21,6 +20,8 @@ import { useRecoilState } from "recoil";
 import { pushQuestion } from "./firebase";
 import { postsState } from "./atoms/atom";
 import Header from "../src/components/Header";
+import BackButton from "../src/components/atoms/button/BackButton";
+import SaveButton from "../src/components/atoms/button/SaveButton";
 
 const handler = (path) => {
   Router.push(path);
@@ -175,25 +176,8 @@ const user = () => {
             </Container>
             <Spacer />
             <Box pos="absolute" bottom="8" right="0">
-              <Button
-                background="#F4D1AE"
-                _hover={{ opacity: "0.8" }}
-                onClick={() => handler("/user")}
-                mr="2"
-              >
-                <ArrowLeftIcon mr="2" />
-                戻る
-              </Button>
-              <Button
-                colorScheme="blue"
-                color="#FFFFFF"
-                mr="28px"
-                type="submit"
-                onClick={newQuestion}
-              >
-                <CheckIcon mr="2" />
-                保存
-              </Button>
+              <BackButton />
+              <SaveButton onClick={newQuestion} />
             </Box>
           </form>
         </Container>
