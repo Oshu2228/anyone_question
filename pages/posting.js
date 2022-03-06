@@ -100,7 +100,7 @@ const user = () => {
       <Container className={styles.mainContainer}>
         <Header />
 
-        <Container minH="calc(100% - 64px)" maxW="100%" bg="white" padding="5">
+        <Container className={styles.subContainer}>
           <form>
             <Container py={["20px", "60px"]} maxW="container.lg">
               <Stack spacing={[2, 6]}>

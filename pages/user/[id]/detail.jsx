@@ -25,7 +25,6 @@ const handler = (path) => {
 const Detail = () => {
   const posts = useRecoilValue(postsState);
   const router = useRouter();
-
   const post = posts.filter((post) => {
     return post.id === Number(router.query.id);
   });
@@ -39,7 +38,7 @@ const Detail = () => {
 
       <Container className={styles.mainContainer}>
         <Header />
-        <Container minH="calc(100% - 64px)" maxW="100%" bg="white" padding="5">
+        <Container className={styles.subContainer}>
           <form>
             <Container py={["20px", "60px"]} maxW="container.lg">
               <Stack spacing={[2, 6]}>

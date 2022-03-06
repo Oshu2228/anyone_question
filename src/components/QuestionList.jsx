@@ -26,7 +26,7 @@ const TodoList = () => {
 
   return (
     <>
-      <Box mt="10" mr="5" textAlign="right">
+      <Box pt="10" mr="5" textAlign="right">
         <Button
           background="#F4D1AE"
           _hover={{ opacity: "0.8" }}

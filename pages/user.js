@@ -14,7 +14,7 @@ const user = () => {
 
       <Container className={styles.mainContainer}>
         <Header />
-        <Container minH="calc(100% - 64px)" maxW="100%" bg="white" padding="5">
+        <Container className={styles.subContainer}>
           <QuestionList />
         </Container>
       </Container>

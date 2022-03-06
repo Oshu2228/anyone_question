@@ -18,7 +18,7 @@ import Head from "next/head";
 import Router, { useRouter } from "next/router";
 import { useRecoilState } from "recoil";
 import Header from "../../../src/components/Header";
-import styles from "../../../styles/Container.module.css"
+import styles from "../../../styles/Container.module.css";
 import { postsState } from "../../../src/atoms/atom";
 
 const handler = (path) => {
@@ -31,16 +31,13 @@ const Answer = () => {
   // const [yesCount, setYesCount] = useState(Number);
   // const [noCount, setNoCount] = useState(Number);
   // const [count, setCount] = useState(0);
-
   const router = useRouter();
-
   const post = posts.filter((post) => {
     return post.id === Number(router.query.id);
   });
 
   const handleUpdateAnswer = (id, value) => {
     const foundPost = posts.findIndex((post) => post.id === id);
-
     const replaceItemAtIndex = (posts, foundPost, newValue) => {
       return [
         ...posts.slice(0, foundPost),
@@ -55,11 +52,8 @@ const Answer = () => {
         yes: value,
       });
     });
-
     router.push("/user");
   };
-
-  console.log(value);
 
   return (
     <>
@@ -70,7 +64,7 @@ const Answer = () => {
 
       <Container className={styles.mainContainer}>
         <Header />
-        <Container minH="calc(100% - 64px)" maxW="100%" bg="white" padding="5">
+        <Container className={styles.subContainer}>
           <form>
             <Container py={["20px", "60px"]} maxW="container.lg">
               <Stack spacing={[2, 6]}>

@@ -38,8 +38,8 @@ const Edit = () => {
 
       <Container className={styles.mainContainer}>
         <Header />
-        <Container minH="calc(100% - 64px)" maxW="100%" bg="white" padding="5">
-          <Box mt="10" mr="5" textAlign="right">
+        <Container className={styles.subContainer}>
+          <Box pt="10" mr="5" textAlign="right">
             <Button
               background="#F4D1AE"
               _hover={{ opacity: "0.8" }}
