@@ -11,13 +11,14 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { LockIcon } from "@chakra-ui/icons";
-import Router, { useRouter } from "next/router";
-import { auth } from "./firebase";
-import { useAuthContext } from "./context/AuthContext";
+import { useRouter } from "next/router";
+
 import Link from "next/link";
-const handler = (path) => {
-  Router.push(path);
-};
+import { useAuthContext } from "../src/context/AuthContext";
+import { auth } from "../src/base/firebase";
+// const handler = (path) => {
+//   Router.push(path);
+// };
 
 const Login = () => {
   const { user } = useAuthContext();
