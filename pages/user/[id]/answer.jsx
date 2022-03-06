@@ -33,7 +33,7 @@ import {
 import { Avatar } from "@chakra-ui/react";
 import Head from "next/head";
 import Router, { useRouter } from "next/router";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { postsState } from "../../atoms/atom";
 
 const handler = (path) => {
@@ -41,15 +41,43 @@ const handler = (path) => {
 };
 
 const Answer = () => {
-  const posts = useRecoilValue(postsState);
+  const [posts, setPosts] = useRecoilState(postsState);
   const [value, setValue] = useState();
+  // const [yesCount, setYesCount] = useState(Number);
+  // const [noCount, setNoCount] = useState(Number);
+  const[ count, setCount ] = useState(0);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
   const router = useRouter();
 
+ const incremant = () => {
+  setCount(count + 1)
+ }
+
   const post = posts.filter((post) => {
     return post.id === Number(router.query.id);
   });
+
+  const handleUpdateAnswer = (id, value) => {
+    const foundPost = posts.findIndex((post) => post.id === id);
+
+    const replaceItemAtIndex = (posts, foundPost, newValue) => {
+      return [
+        ...posts.slice(0, foundPost),
+        newValue,
+        ...posts.slice(foundPost + 1),
+      ];
+    };
+
+    setPosts(() => {
+      return replaceItemAtIndex(posts, foundPost, {
+        ...posts[foundPost],
+        yes: value,
+      });
+    });
+
+    router.push("/user");
+  };
 
   console.log(value);
 
@@ -182,7 +210,7 @@ const Answer = () => {
                     <Text fontSize={32}>Yes</Text>
                   </Radio>
                   <Radio value="no" size="lg">
-                  <Text fontSize={32}>No</Text>
+                    <Text fontSize={32}>No</Text>
                   </Radio>
                 </Stack>
               </RadioGroup>
@@ -203,7 +231,7 @@ const Answer = () => {
                 color="#FFFFFF"
                 mr="28px"
                 w="88px"
-                // onClick={() => handler(`/user/${post.id}/answer`)}
+                onClick={() => handleUpdateAnswer(post[0]?.id, value)}
               >
                 送信する
               </Button>

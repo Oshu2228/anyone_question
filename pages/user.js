@@ -21,11 +21,14 @@ import React, { useRef } from "react";
 import QuestionList from "./components/QuestionList";
 import Router, { useRouter } from "next/router";
 import { auth } from "./firebase";
+import { useRecoilState } from "recoil";
+import { postsState } from "./atoms/atom";
 const handler = (path) => {
   Router.push(path);
 };
 
 const user = () => {
+  const [posts, setPosts] = useRecoilState(postsState);
   const router = useRouter();
   const handleLogout = () => {
     auth.signOut();
@@ -33,6 +36,7 @@ const user = () => {
   };
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
+
 
   return (
     <>

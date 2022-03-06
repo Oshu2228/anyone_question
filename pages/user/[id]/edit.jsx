@@ -90,7 +90,20 @@ const Edit = () => {
       });
     });
 
-    pushQuestion({ name: editPost[0]?.name, title: newTitle, text: newText });
+    // pushQuestion({
+    //   questioner:{
+    //     name: editPost[0]?.name,
+    //     title: newTitle,
+    //     text: newText,
+    //     createDate: today(),
+    //   },
+    //   count:{
+    //     all:10,
+    //     yes:6,
+    //     no:4
+    //   }
+    // });
+    
 
     toast({
       title: "保存しました.",

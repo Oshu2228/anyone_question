@@ -165,6 +165,18 @@ const Detail = () => {
             </Container>
             <Spacer />
 
+            <Stack
+              spacing={[1, 5]}
+              direction={["column", "row"]}
+              justify="center"
+            >
+              
+                <Text fontSize={32}>Yes:{post[0]?.yes}</Text>
+
+                <Text fontSize={32}>No:{post[0]?.no}</Text>
+             
+            </Stack>
+
             <Box pos="absolute" bottom="8" right="0">
               <Button
                 background="#F4D1AE"

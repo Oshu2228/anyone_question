@@ -92,10 +92,17 @@ const user = () => {
       });
     }
     pushQuestion({
-      name: addName,
-      title: addTitle,
-      text: addText,
-      createDate: today(),
+      questioner:{
+        name: addName,
+        title: addTitle,
+        text: addText,
+        createDate: today(),
+      },
+      count:{
+        all:10,
+        yes:6,
+        no:4
+      }
     });
     setAddName("");
     setAddTitle("");

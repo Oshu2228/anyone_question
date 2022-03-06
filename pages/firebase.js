@@ -1,5 +1,5 @@
 import firebase from "firebase";
-import 'firebase/auth';
+import "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCJ101C9JnMbyefVZiJregrm2n1aoVMK98",
@@ -16,9 +16,10 @@ if (firebase.apps.length === 0) {
 }
 const database = firebase.database();
 const questionRef = database.ref("questions");
-export const provider = new firebase.auth.GoogleAuthProvider(); 
+export const provider = new firebase.auth.GoogleAuthProvider();
 export const auth = firebase.auth();
 
-export const pushQuestion = ({ name, title, text,createDate }) => {
-  questionRef.push({ name, title, text , createDate});
+export const pushQuestion = ({ questioner, count }) => {
+  questionRef.push({ questioner, count });
 };
+
