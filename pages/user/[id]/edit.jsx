@@ -1,41 +1,25 @@
-import React, { useRef, useState } from "react";
-import {
-  AddIcon,
-  ArrowLeftIcon,
-  CheckIcon,
-  EditIcon,
-  HamburgerIcon,
-} from "@chakra-ui/icons";
+import React, { useState } from "react";
+import { ArrowLeftIcon, CheckIcon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
   Container,
   Divider,
-  Drawer,
-  DrawerBody,
-  DrawerCloseButton,
-  DrawerContent,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerOverlay,
   Flex,
   FormControl,
   FormLabel,
-  Heading,
   Input,
   Spacer,
   Stack,
-  Text,
   Textarea,
-  useDisclosure,
   useToast,
 } from "@chakra-ui/react";
-import { Avatar } from "@chakra-ui/react";
 import Head from "next/head";
 import Router, { useRouter } from "next/router";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { postsState } from "../../atoms/atom";
 import { pushQuestion } from "../../firebase";
+import Header from "../../../src/components/Header";
 
 const handler = (path) => {
   Router.push(path);
@@ -43,8 +27,6 @@ const handler = (path) => {
 
 const Edit = () => {
   const [posts, setPosts] = useRecoilState(postsState);
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const btnRef = useRef();
   const router = useRouter();
   const toast = useToast();
 
@@ -103,7 +85,6 @@ const Edit = () => {
     //     no:4
     //   }
     // });
-    
 
     toast({
       title: "保存しました.",
@@ -149,67 +130,7 @@ const Edit = () => {
         m="0"
         padding="1rem"
       >
-        <Heading pt="2" pb="2" pl="5" bg="#C5D8D1">
-          <Flex alignItems="center">
-            {/* エラー文 404 (Not Found) */}
-            <HamburgerIcon ref={btnRef} onClick={onOpen} mr="24px" />
-
-            <Drawer
-              isOpen={isOpen}
-              placement="left"
-              onClose={onClose}
-              finalFocusRef={btnRef}
-            >
-              <DrawerOverlay />
-              <DrawerContent>
-                <DrawerCloseButton />
-                <DrawerHeader>Your account</DrawerHeader>
-
-                <DrawerBody>
-                  <Flex mb="24px" alignItems="center">
-                    <Avatar src="https://bit.ly/broken-link" mr="8px" />
-                    <Text>リヴァイ</Text>
-                  </Flex>
-
-                  <Flex
-                    alignItems="center"
-                    cursor="pointer"
-                    onClick={() => handler("/posting")}
-                    _hover={{ background: "#8FBFE0", borderRadius: "20px" }}
-                  >
-                    <AddIcon mr="8px" />
-                    <Text lineHeight="48px">質問を作成</Text>
-                  </Flex>
-
-                  <Flex
-                    alignItems="center"
-                    mb="16px"
-                    _hover={{ background: "#8FBFE0", borderRadius: "20px" }}
-                  >
-                    <EditIcon mr="8px" />
-                    <Text lineHeight="48px">作成した質問を編集</Text>
-                  </Flex>
-                  <Box textAlign="center">
-                    <Button
-                      mt="40px"
-                      colorScheme="red"
-                      onClick={() => handler("/")}
-                    >
-                      Log Out
-                    </Button>
-                  </Box>
-                </DrawerBody>
-
-                <DrawerFooter>
-                  <Button variant="outline" mr={3} onClick={onClose}>
-                    Cancel
-                  </Button>
-                </DrawerFooter>
-              </DrawerContent>
-            </Drawer>
-            <Text>みんなの質問</Text>
-          </Flex>
-        </Heading>
+        <Header />
 
         <Container minH="calc(100% - 64px)" maxW="100%" bg="white" padding="5">
           <form>
