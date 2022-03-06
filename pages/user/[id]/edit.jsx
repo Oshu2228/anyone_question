@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ArrowLeftIcon, CheckIcon } from "@chakra-ui/icons";
 import {
   Box,
@@ -22,22 +22,31 @@ import Header from "../../../src/components/Header";
 import styles from "../../../styles/Container.module.css";
 import { postsState } from "../../../src/atoms/atom";
 import UserButton from "../../../src/components/atoms/button/UserButton";
-import BackButton from "../../../src/components/atoms/button/BackButton"
-
+import BackButton from "../../../src/components/atoms/button/BackButton";
 
 const handler = (path) => {
   Router.push(path);
 };
 
 const Edit = () => {
+  const [newTitle, setNewTitle] = useState("");
+  const [newText, setNewText] = useState("");
   const [posts, setPosts] = useRecoilState(postsState);
   const router = useRouter();
   const toast = useToast();
+  const { isReady } = useRouter();
+
+  useEffect(() => {
+    if (isReady) {
+      setNewTitle(editPost[0].title);
+      setNewText(editPost[0].text);
+    } else {
+      return;
+    }
+  }, [isReady]);
   const editPost = posts.filter((post) => {
     return post.id === Number(router.query.id);
   });
-  const [newTitle, setNewTitle] = useState(editPost[0]?.title);
-  const [newText, setNewText] = useState(editPost[0]?.text);
 
   const handleSetNewTitle = (e) => {
     setNewTitle(e.target.value);
@@ -57,7 +66,6 @@ const Edit = () => {
         isClosable: true,
       });
     }
-
     const replaceItemAtIndex = (posts, foundPost, newValue) => {
       return [
         ...posts.slice(0, foundPost),
@@ -65,7 +73,6 @@ const Edit = () => {
         ...posts.slice(foundPost + 1),
       ];
     };
-
     setPosts(() => {
       return replaceItemAtIndex(posts, foundPost, {
         ...posts[foundPost],
@@ -73,20 +80,6 @@ const Edit = () => {
         text: text,
       });
     });
-
-    // pushQuestion({
-    //   questioner:{
-    //     name: editPost[0]?.name,
-    //     title: newTitle,
-    //     text: newText,
-    //     createDate: today(),
-    //   },
-    //   count:{
-    //     all:10,
-    //     yes:6,
-    //     no:4
-    //   }
-    // });
 
     toast({
       title: "保存しました.",
@@ -141,7 +134,7 @@ const Edit = () => {
                   </Flex>
                 </FormControl>
                 <Divider borderColor="gray" borderBottomWidth="2px" />
-                <FormControl>
+                {/* <FormControl>
                   <Flex direction={["column", "row"]}>
                     <Flex minW={24} width={24}>
                       <FormLabel>タイトル</FormLabel>
@@ -149,7 +142,7 @@ const Edit = () => {
                       <Box>:</Box>
                     </Flex>
                     <Box>
-                      <Input
+                      <Textarea
                         ml={[0, 6]}
                         borderColor="#bebaba"
                         borderWidth="2px"
@@ -157,6 +150,23 @@ const Edit = () => {
                         onChange={handleSetNewTitle}
                       />
                     </Box>
+                  </Flex>
+                </FormControl> */}
+                <FormControl>
+                  <Flex direction={["column", "row"]}>
+                    <Flex minW={24} width={24}>
+                      <FormLabel>質問内容</FormLabel>
+                      <Spacer />
+                      <Box>:</Box>
+                    </Flex>
+                    <Input
+                      ml={[0, 6]}
+                      borderColor="#bebaba"
+                      borderWidth="2px"
+                      h="32px"
+                      value={newTitle}
+                      onChange={handleSetNewTitle}
+                    />
                   </Flex>
                 </FormControl>
                 <Divider borderColor="gray" borderBottomWidth="2px" />
@@ -183,7 +193,7 @@ const Edit = () => {
             <Spacer />
           </form>
           <Box pos="absolute" bottom="8" right="0">
-          <BackButton onClick={() => handler("/user")}/>
+            <BackButton onClick={() => handler("/user")} />
             <Button
               colorScheme="red"
               onClick={() => handleDeletePost(editPost[0]?.id)}
@@ -194,7 +204,7 @@ const Edit = () => {
             <UserButton
               colorScheme={"blue"}
               text={"保存"}
-              onClick={()=>handleEditPost(editPost[0]?.id,newTitle,newText)}
+              onClick={() => handleEditPost(editPost[0]?.id, newTitle, newText)}
             />
           </Box>
         </Container>
