@@ -17,10 +17,10 @@ import {
 import Router from "next/router";
 import { postsState } from "./atoms/atom";
 import Head from "next/head";
-import { AddIcon, ArrowLeftIcon } from "@chakra-ui/icons";
-import { useRef } from "react";
+import { AddIcon } from "@chakra-ui/icons";
 import Header from "../src/components/Header";
-import BackButton from "../src/components/atoms/BackButton";
+import BackButton from "../src/components/atoms/button/BackButton";
+import EditButton from "../src/components/atoms/button/EditButton";
 const handler = (path) => {
   Router.push(path);
 };
@@ -83,14 +83,12 @@ const Edit = () => {
                     <Td>
                       <Box display="flex">
                         <Text lineHeight="40px">{post.title}</Text>
-                        <Button
-                          colorScheme="green"
-                          ml="auto"
-                          mr={2}
+
+                        <EditButton
                           onClick={() => handler(`/user/${post.id}/edit`)}
-                        >
-                          編集
-                        </Button>
+                       />
+                        
+
                       </Box>
                     </Td>
                     <Td>{post.createDate}</Td>
