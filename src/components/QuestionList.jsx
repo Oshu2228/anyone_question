@@ -16,11 +16,11 @@ import {postsState} from "../atoms/atom"
 import UserButton from "./atoms/button/UserButton";
 import AddButton from "./atoms/button/AddButton"
 
+const handler = (path) => {
+  Router.push(path);
+};
 const TodoList = () => {
   const posts = useRecoilValue(postsState);
-  // const handler = (path) => {
-  //   Router.push(path);
-  // };
 
   return (
     <>

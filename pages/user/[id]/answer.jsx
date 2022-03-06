@@ -122,9 +122,9 @@ const Answer = () => {
                 </Stack>
               </RadioGroup>
             </Stack>
-            <Box pos="absolute" bottom="8" right="0">
+            <Box pos="absolute" bottom="8" right={6}>
             <BackButton onClick={() => handler("/user")}/>
-              <Button
+              {/* <Button
                 colorScheme="linkedin"
                 color="#FFFFFF"
                 mr="28px"
@@ -132,7 +132,7 @@ const Answer = () => {
                 onClick={() => handleUpdateAnswer(post[0]?.id, value)}
               >
                 送信する
-              </Button>
+              </Button> */}
             </Box>
           </form>
         </Container>
