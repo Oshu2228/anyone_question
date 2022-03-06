@@ -91,17 +91,8 @@ const Detail = () => {
               <Text fontSize={32}>No:{post[0]?.no}</Text>
             </Stack>
 
-            <Box pos="absolute" bottom="8" right="0">
+            <Box pos="absolute" bottom="8" right={6}>
             <BackButton onClick={() => handler("/user")}/>
-              <Button
-                colorScheme="cyan"
-                color="#FFFFFF"
-                mr="28px"
-                w="88px"
-                onClick={() => handler(`/user/${post.id}/answer`)}
-              >
-                回答する
-              </Button>
             </Box>
           </form>
         </Container>

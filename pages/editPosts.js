@@ -22,12 +22,13 @@ import Header from "../src/components/Header";
 import BackButton from "../src/components/atoms/button/BackButton";
 import UserButton from "../src/components/atoms/button/UserButton";
 import styles from "../styles/Container.module.css";
-const handler = (path) => {
-  Router.push(path);
-};
+import AddButton from "../src/components/atoms/button/AddButton";
 
 const Edit = () => {
   const posts = useRecoilValue(postsState);
+  const handler = (path) => {
+    Router.push(path);
+  };
 
   return (
     <>
@@ -39,16 +40,7 @@ const Edit = () => {
       <Container className={styles.mainContainer}>
         <Header />
         <Container className={styles.subContainer}>
-          <Box pt="10" mr="5" textAlign="right">
-            <Button
-              background="#F4D1AE"
-              _hover={{ opacity: "0.8" }}
-              onClick={() => handler("/posting")}
-            >
-              <AddIcon mr="2" />
-              新規投稿
-            </Button>
-          </Box>
+          <AddButton/>
           <Container h="100%" maxW="100%" mt="5">
             <Table>
               <Thead bg="#F4EDEA">

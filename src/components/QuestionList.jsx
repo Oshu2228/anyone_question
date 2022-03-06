@@ -10,31 +10,21 @@ import {
   Thead,
   Tr,
   Box,
-  Button,
 } from "@chakra-ui/react";
-import { postsState } from "../atoms/atom";
 import Router from "next/router";
-import { AddIcon } from "@chakra-ui/icons";
+import {postsState} from "../atoms/atom"
 import UserButton from "./atoms/button/UserButton";
-const handler = (path) => {
-  Router.push(path);
-};
+import AddButton from "./atoms/button/AddButton"
 
 const TodoList = () => {
   const posts = useRecoilValue(postsState);
+  // const handler = (path) => {
+  //   Router.push(path);
+  // };
 
   return (
     <>
-      <Box pt="10" mr="5" textAlign="right">
-        <Button
-          background="#F4D1AE"
-          _hover={{ opacity: "0.8" }}
-          onClick={() => handler("/posting")}
-        >
-          <AddIcon mr="2" />
-          新規投稿
-        </Button>
-      </Box>
+      <AddButton />
       <Container h="100%" maxW="100%" mt="5">
         <Table>
           <Thead bg="#F4EDEA">

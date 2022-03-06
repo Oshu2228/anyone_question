@@ -22,6 +22,8 @@ import Header from "../../../src/components/Header";
 import styles from "../../../styles/Container.module.css";
 import { postsState } from "../../../src/atoms/atom";
 import UserButton from "../../../src/components/atoms/button/UserButton";
+import BackButton from "../../../src/components/atoms/button/BackButton"
+
 
 const handler = (path) => {
   Router.push(path);
@@ -181,15 +183,7 @@ const Edit = () => {
             <Spacer />
           </form>
           <Box pos="absolute" bottom="8" right="0">
-            <Button
-              background="#F4D1AE"
-              _hover={{ opacity: "0.8" }}
-              onClick={() => handler("/editPosts")}
-              mr="2"
-            >
-              <ArrowLeftIcon mr="2" />
-              戻る
-            </Button>
+          <BackButton onClick={() => handler("/user")}/>
             <Button
               colorScheme="red"
               onClick={() => handleDeletePost(editPost[0]?.id)}
