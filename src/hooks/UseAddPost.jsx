@@ -2,7 +2,7 @@ import { useToast } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useRecoilState } from "recoil";
 import { postsState } from "../atoms/atom";
-import { pushQuestion } from "../base/firebase";
+import { db, pushQuestion } from "../base/firebase";
 
 const UseAddPost = () => {
   const [posts, setPosts] = useRecoilState(postsState);
@@ -17,6 +17,7 @@ const UseAddPost = () => {
     const date = new Date().getDate();
     return year + month + date;
   };
+
 
   const newQuestion = (addName, addTitle, addText) => {
     if (addName === "" || addTitle === "" || addText === "") {
@@ -38,20 +39,14 @@ const UseAddPost = () => {
           createDate: today(),
         },
       ]);
-      pushQuestion({
-        questioner: {
-          name: addName,
-          title: addTitle,
-          text: addText,
-          createDate: today(),
-        },
-        count: {
-          all: 10,
-          yes: 6,
-          no: 4,
-        },
+
+      db.collection("question").add({
+        name: addName,
+        title: addTitle,
+        text: addText,
+        createDate: new Date(),
       });
-    
+
       router.push("/user");
     }
   };

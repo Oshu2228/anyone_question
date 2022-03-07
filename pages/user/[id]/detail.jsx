@@ -24,9 +24,9 @@ const Detail = () => {
   const posts = useRecoilValue(postsState);
   const router = useRouter();
   const post = posts.filter((post) => {
-    return post.id === Number(router.query.id);
+    return post.id === (router.query.id);
   });
-
+console.log(posts);
   return (
     <>
       <Head>

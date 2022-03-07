@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import {
   Container,
   Table,
@@ -12,18 +12,52 @@ import {
   Box,
 } from "@chakra-ui/react";
 import Router from "next/router";
-import {postsState} from "../atoms/atom"
+import { postsState } from "../atoms/atom";
 import UserButton from "./atoms/button/UserButton";
-import AddButton from "./atoms/button/AddButton"
+import AddButton from "./atoms/button/AddButton";
+import { db } from "../../src/base/firebase";
+import { useEffect, useState } from "react";
 
 const handler = (path) => {
   Router.push(path);
 };
 const TodoList = () => {
-  const posts = useRecoilValue(postsState);
+  const [posts, setPosts] = useRecoilState(postsState);
+  // firestore 試運転
+  // const [tasks, setTasks] = useState([{ id: "", title: "" }]);
+  // useEffect(() => {
+  //   const unSub = db.collection("tasks").onSnapshot((snapshot) => {
+  //     setTasks(
+  //       snapshot.docs.map((doc) => ({
+  //         id: doc.id,
+  //         title: doc.data().title,
+  //       }))
+  //     );
+  //   });
+  //   return () => unSub();
+  // }, []);
+
+  useEffect(() => {
+    const unSub = db.collection("question").onSnapshot((snapshot) => {
+      setPosts([
+        ...posts,
+        ...snapshot.docs.map((doc) => ({
+          id: doc.id,
+          title: doc.data().title,
+          name: doc.data().name,
+          text: doc.data().text,
+          // createDate: doc.data().timestamp.toDate(),
+        })),
+      ]);
+    });
+    return () => unSub();
+  }, []);
+
+  console.log(posts);
 
   return (
     <>
+      {/* {tasks.map((task)=><h3>{task.title}</h3>)} */}
       <AddButton />
       <Container h="100%" maxW="100%" mt="5">
         <Table>

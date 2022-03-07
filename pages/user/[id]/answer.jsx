@@ -7,11 +7,13 @@ import {
   Flex,
   FormControl,
   FormLabel,
+  Input,
   Radio,
   RadioGroup,
   Spacer,
   Stack,
   Text,
+  Textarea,
 } from "@chakra-ui/react";
 import Head from "next/head";
 import Router, { useRouter } from "next/router";
@@ -20,6 +22,7 @@ import Header from "../../../src/components/Header";
 import styles from "../../../styles/Container.module.css";
 import { postsState } from "../../../src/atoms/atom";
 import BackButton from "../../../src/components/atoms/button/BackButton";
+import UserButton from "../../../src/components/atoms/button/UserButton";
 const handler = (path) => {
   Router.push(path);
 };
@@ -27,32 +30,10 @@ const handler = (path) => {
 const Answer = () => {
   const [posts, setPosts] = useRecoilState(postsState);
   const [value, setValue] = useState();
-  // const [yesCount, setYesCount] = useState(Number);
-  // const [noCount, setNoCount] = useState(Number);
-  // const [count, setCount] = useState(0);
   const router = useRouter();
   const post = posts.filter((post) => {
-    return post.id === Number(router.query.id);
+    return post.id === (router.query.id);
   });
-
-  const handleUpdateAnswer = (id, value) => {
-    const foundPost = posts.findIndex((post) => post.id === id);
-    const replaceItemAtIndex = (posts, foundPost, newValue) => {
-      return [
-        ...posts.slice(0, foundPost),
-        newValue,
-        ...posts.slice(foundPost + 1),
-      ];
-    };
-
-    setPosts(() => {
-      return replaceItemAtIndex(posts, foundPost, {
-        ...posts[foundPost],
-        yes: value,
-      });
-    });
-    router.push("/user");
-  };
 
   return (
     <>
@@ -100,37 +81,30 @@ const Answer = () => {
                   </Flex>
                 </FormControl>
                 <Divider borderColor="gray" borderBottomWidth="2px" />
+                <FormControl>
+                  <Flex direction={["column", "row"]}>
+                    <Flex minW={24} width={24}>
+                      <FormLabel>回答</FormLabel>
+                      <Spacer />
+                      <Box>:</Box>
+                    </Flex>
+                    <Textarea
+                      ml={[0, 6]}
+                      borderColor="#bebaba"
+                      borderWidth="2px"
+                      h="32px"
+                      // value={newTitle}
+                      // onChange={(e) => setNewTitle(e.target.value)}
+                    />
+                  </Flex>
+                </FormControl>
               </Stack>
             </Container>
             <Spacer />
 
-            <Stack
-              spacing={[1, 5]}
-              direction={["column", "row"]}
-              justify="center"
-            >
-              <RadioGroup onChange={setValue} value={value}>
-                <Stack direction="row">
-                  <Radio value="yes" size="lg">
-                    <Text fontSize={32}>Yes</Text>
-                  </Radio>
-                  <Radio value="no" size="lg">
-                    <Text fontSize={32}>No</Text>
-                  </Radio>
-                </Stack>
-              </RadioGroup>
-            </Stack>
             <Box pos="absolute" bottom="8" right={6}>
-            <BackButton onClick={() => handler("/user")}/>
-              {/* <Button
-                colorScheme="linkedin"
-                color="#FFFFFF"
-                mr="28px"
-                w="88px"
-                onClick={() => handleUpdateAnswer(post[0]?.id, value)}
-              >
-                送信する
-              </Button> */}
+              <BackButton onClick={() => handler("/user")} />
+              <UserButton colorScheme={"linkedin"} text={"送信"}/>
             </Box>
           </form>
         </Container>

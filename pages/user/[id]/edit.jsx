@@ -36,14 +36,14 @@ const Edit = () => {
 
   useEffect(() => {
     if (isReady) {
-      setNewTitle(editPost[0].title);
-      setNewText(editPost[0].text);
+      setNewTitle(editPost[0]?.title);
+      setNewText(editPost[0]?.text);
     } else {
       return;
     }
   }, [isReady]);
   const editPost = posts.filter((post) => {
-    return post.id === Number(router.query.id);
+    return post.id === (router.query.id);
   });
   
   // Post更新用カスタムフック
@@ -78,7 +78,7 @@ const Edit = () => {
                 <FormControl>
                   <Flex direction={["column", "row"]}>
                     <Flex minW={24} width={24}>
-                      <FormLabel>質問内容</FormLabel>
+                      <FormLabel>タイトル</FormLabel>
                       <Spacer />
                       <Box>:</Box>
                     </Flex>
