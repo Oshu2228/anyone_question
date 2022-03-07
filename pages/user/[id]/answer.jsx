@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { ArrowLeftIcon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
@@ -21,7 +20,6 @@ import Header from "../../../src/components/Header";
 import styles from "../../../styles/Container.module.css";
 import { postsState } from "../../../src/atoms/atom";
 import BackButton from "../../../src/components/atoms/button/BackButton";
-
 const handler = (path) => {
   Router.push(path);
 };

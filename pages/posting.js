@@ -9,89 +9,25 @@ import {
   Spacer,
   Stack,
   Textarea,
-  useToast,
 } from "@chakra-ui/react";
 import Head from "next/head";
 import React, { useState } from "react";
-import Router, { useRouter } from "next/router";
-import { useRecoilState } from "recoil";
-import { pushQuestion } from "../src/base/firebase";
-import { postsState } from "../src/atoms/atom";
 import Header from "../src/components/Header";
 import BackButton from "../src/components/atoms/button/BackButton";
 import UserButton from "../src/components/atoms/button/UserButton";
 import styles from "../styles/Container.module.css";
+import UseAddPost from "../src/hooks/UseAddPost";
+import  Router  from "next/router";
 const handler = (path) => {
   Router.push(path);
 };
 
 const user = () => {
-  const [posts, setPosts] = useRecoilState(postsState);
   const [addName, setAddName] = useState("");
   const [addTitle, setAddTitle] = useState("");
   const [addText, setAddText] = useState("");
-  const router = useRouter();
-  const toast = useToast();
-
-  const handleInputName = (e) => {
-    setAddName(e.target.value);
-  };
-  const handleInputTitle = (e) => {
-    setAddTitle(e.target.value);
-  };
-  const handleInputText = (e) => {
-    setAddText(e.target.value);
-  };
-
-  const addId = posts[posts.length - 1].id + 1;
-
-  const today = () => {
-    const year = new Date().getFullYear() + "-";
-    const month = new Date().getMonth() * 1 + 1 + "-";
-    const date = new Date().getDate();
-    return year + month + date;
-  };
-
-  const newQuestion = (e) => {
-    e.preventDefault();
-    setPosts([
-      ...posts,
-      {
-        id: addId,
-        name: addName,
-        title: addTitle,
-        text: addText,
-        createDate: today(),
-      },
-    ]);
-
-    if (addName === "" || addTitle === "" || addText === "") {
-      return toast({
-        title: "空欄の項目があります",
-        position: "top",
-        status: "warning",
-        duration: 2000,
-        isClosable: true,
-      });
-    }
-    pushQuestion({
-      questioner: {
-        name: addName,
-        title: addTitle,
-        text: addText,
-        createDate: today(),
-      },
-      count: {
-        all: 10,
-        yes: 6,
-        no: 4,
-      },
-    });
-    setAddName("");
-    setAddTitle("");
-    setAddText("");
-    router.push("/user");
-  };
+  // Post追加用カスタムフック
+  const { newQuestion } = UseAddPost();
 
   return (
     <>
@@ -102,7 +38,6 @@ const user = () => {
 
       <Container className={styles.mainContainer}>
         <Header />
-
         <Container className={styles.subContainer}>
           <form>
             <Container py={["20px", "60px"]} maxW="container.lg">
@@ -120,7 +55,7 @@ const user = () => {
                         borderColor="#bebaba"
                         borderWidth="2px"
                         value={addName}
-                        onChange={handleInputName}
+                        onChange={(e) => setAddName(e.target.value)}
                       />
                     </Box>
                   </Flex>
@@ -139,7 +74,7 @@ const user = () => {
                         borderColor="#bebaba"
                         borderWidth="2px"
                         value={addTitle}
-                        onChange={handleInputTitle}
+                        onChange={(e) => setAddTitle(e.target.value)}
                       />
                     </Box>
                   </Flex>
@@ -158,7 +93,7 @@ const user = () => {
                       borderWidth="2px"
                       h="180px"
                       value={addText}
-                      onChange={handleInputText}
+                      onChange={(e) => setAddText(e.target.value)}
                     />
                   </Flex>
                 </FormControl>
@@ -168,10 +103,11 @@ const user = () => {
             <Spacer />
             <Box pos="absolute" bottom="8" right="0">
               <BackButton onClick={() => handler("/user")} />
-              <UserButton 
-              text={"保存"}
-              colorScheme={"blue"}
-              onClick={newQuestion} />
+              <UserButton
+                text={"保存"}
+                colorScheme={"blue"}
+                onClick={() => newQuestion(addName, addTitle, addText)}
+              />
             </Box>
           </form>
         </Container>
