@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { ArrowLeftIcon, CheckIcon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
@@ -23,6 +22,7 @@ import styles from "../../../styles/Container.module.css";
 import { postsState } from "../../../src/atoms/atom";
 import UserButton from "../../../src/components/atoms/button/UserButton";
 import BackButton from "../../../src/components/atoms/button/BackButton";
+import UseDeletePost from "../../../src/hooks/UseDeletePost"
 
 const handler = (path) => {
   Router.push(path);
@@ -91,24 +91,26 @@ const Edit = () => {
     router.push("/editPosts");
   };
 
-  const handleDeletePost = (id) => {
-    const result = window.confirm("本当に削除してもよろしいですか?");
-    if (result) {
-      const foundPost = posts.findIndex((post) => post.id === id);
-      const deletePost = [...posts];
-      deletePost.splice(foundPost, 1);
-      setPosts(deletePost);
+  // const handleDeletePost = (id) => {
+  //   const result = window.confirm("本当に削除してもよろしいですか?");
+  //   if (result) {
+  //     const foundPost = posts.findIndex((post) => post.id === id);
+  //     const deletePost = [...posts];
+  //     deletePost.splice(foundPost, 1);
+  //     setPosts(deletePost);
 
-      toast({
-        title: "削除しました.",
-        position: "top",
-        status: "error",
-        duration: 1000,
-        isClosable: true,
-      });
-      router.push("/editPosts");
-    }
-  };
+  //     toast({
+  //       title: "削除しました.",
+  //       position: "top",
+  //       status: "error",
+  //       duration: 1000,
+  //       isClosable: true,
+  //     });
+  //     router.push("/editPosts");
+  //   }
+  // };
+
+  const { handleDeletePost } = UseDeletePost();
 
   return (
     <>

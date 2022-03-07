@@ -17,7 +17,6 @@ import {
 import Router from "next/router";
 import { postsState } from "../src/atoms/atom";
 import Head from "next/head";
-import { AddIcon } from "@chakra-ui/icons";
 import Header from "../src/components/Header";
 import BackButton from "../src/components/atoms/button/BackButton";
 import UserButton from "../src/components/atoms/button/UserButton";
