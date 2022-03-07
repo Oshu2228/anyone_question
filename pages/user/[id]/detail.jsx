@@ -1,7 +1,5 @@
-import { ArrowLeftIcon } from "@chakra-ui/icons";
 import {
   Box,
-  Button,
   Container,
   Divider,
   Flex,
@@ -18,8 +16,6 @@ import { postsState } from "../../../src/atoms/atom";
 import styles from "../../../styles/Container.module.css";
 import Header from "../../../src/components/Header";
 import BackButton from "../../../src/components/atoms/button/BackButton"
-
-
 const handler = (path) => {
   Router.push(path);
 };
@@ -80,17 +76,14 @@ const Detail = () => {
               </Stack>
             </Container>
             <Spacer />
-
             <Stack
               spacing={[1, 5]}
               direction={["column", "row"]}
               justify="center"
             >
               <Text fontSize={32}>Yes:{post[0]?.yes}</Text>
-
               <Text fontSize={32}>No:{post[0]?.no}</Text>
             </Stack>
-
             <Box pos="absolute" bottom="8" right={6}>
             <BackButton onClick={() => handler("/user")}/>
             </Box>

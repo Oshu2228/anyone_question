@@ -1,6 +1,4 @@
-import Link from "next/link";
 import { useRecoilValue } from "recoil";
-
 import {
   Container,
   Table,
@@ -11,9 +9,7 @@ import {
   Thead,
   Tr,
   Box,
-  Button,
 } from "@chakra-ui/react";
-
 import Router from "next/router";
 import { postsState } from "../src/atoms/atom";
 import Head from "next/head";

@@ -23,7 +23,6 @@ import UserButton from "../../../src/components/atoms/button/UserButton";
 import BackButton from "../../../src/components/atoms/button/BackButton";
 import UseDeletePost from "../../../src/hooks/UseDeletePost";
 import UseEidtPost from "../../../src/hooks/UseEidtPost";
-
 const handler = (path) => {
   Router.push(path);
 };

@@ -1,5 +1,5 @@
 import Head from "next/head";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import {
   Box,
   Button,
@@ -12,16 +12,13 @@ import {
 } from "@chakra-ui/react";
 import { LockIcon } from "@chakra-ui/icons";
 import { useRouter } from "next/router";
-
 import Link from "next/link";
-import { useAuthContext } from "../src/context/AuthContext";
 import { auth } from "../src/base/firebase";
 // const handler = (path) => {
 //   Router.push(path);
 // };
 
 const Login = () => {
-  const { user } = useAuthContext();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -36,13 +33,7 @@ const Login = () => {
       setError(error.message);
     }
   };
-  const handleChangeEmail = (event) => {
-    setEmail(event.currentTarget.value);
-  };
-  const handleChangePassword = (event) => {
-    setPassword(event.currentTarget.value);
-  };
-
+  
   return (
     <>
       <Head>
@@ -68,7 +59,6 @@ const Login = () => {
           bg="#f1f5f9"
           padding="5"
         >
-          {/* <h1>ユーザ登録 {user.email}</h1> */}
           <Flex align="center" justify="center" height="100vh">
             <Box bg="white" w="sm" p={4} borderRadius="md" shadow="md">
               <Box textAlign="center">
@@ -82,23 +72,23 @@ const Login = () => {
                   name="email"
                   type="email"
                   placeholder="email"
-                  onChange={handleChangeEmail}
+                  onChange={(e) => setEmail(e.currentTarget.value)}
                 />
                 <Input
                   name="password"
                   type="password"
                   placeholder="password"
-                  onChange={handleChangePassword}
+                  onChange={(e) => setPassword(e.currentTarget.value)}
                 />
-                 {error && (
-                  <p style={{ color: "red" }}>
-                    無効な設定です
-                  </p>
-                )}
+                {error && <p style={{ color: "red" }}>無効な設定です</p>}
                 <Button colorScheme="blue" onClick={handleSubmit}>
                   登録
                 </Button>
-                <Box color="#3399FF" fontSize="12px" _hover={{ opacity: "0.5" }} >
+                <Box
+                  color="#3399FF"
+                  fontSize="12px"
+                  _hover={{ opacity: "0.5" }}
+                >
                   <Link href="/">
                     <a>ユーザー登録済みの方はこちらから</a>
                   </Link>

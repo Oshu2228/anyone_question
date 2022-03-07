@@ -72,7 +72,6 @@ const Login = () => {
           bg="#f1f5f9"
           padding="5"
         >
-          {/* <h1>ユーザ登録 {user.email}</h1> */}
           <Flex align="center" justify="center" height="100vh">
             <Box bg="white" w="sm" p={4} borderRadius="md" shadow="md">
               <Box textAlign="center">
