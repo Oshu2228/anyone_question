@@ -15,14 +15,15 @@ import {
 } from "@chakra-ui/react";
 import Head from "next/head";
 import Router, { useRouter } from "next/router";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 // import { pushQuestion } from "../../firebase";
 import Header from "../../../src/components/Header";
 import styles from "../../../styles/Container.module.css";
 import { postsState } from "../../../src/atoms/atom";
 import UserButton from "../../../src/components/atoms/button/UserButton";
 import BackButton from "../../../src/components/atoms/button/BackButton";
-import UseDeletePost from "../../../src/hooks/UseDeletePost"
+import UseDeletePost from "../../../src/hooks/UseDeletePost";
+import UseEidtPost from "../../../src/hooks/UseEidtPost";
 
 const handler = (path) => {
   Router.push(path);
@@ -31,9 +32,8 @@ const handler = (path) => {
 const Edit = () => {
   const [newTitle, setNewTitle] = useState("");
   const [newText, setNewText] = useState("");
-  const [posts, setPosts] = useRecoilState(postsState);
+  const posts = useRecoilValue(postsState);
   const router = useRouter();
-  const toast = useToast();
   const { isReady } = useRouter();
 
   useEffect(() => {
@@ -47,69 +47,10 @@ const Edit = () => {
   const editPost = posts.filter((post) => {
     return post.id === Number(router.query.id);
   });
-
-  const handleSetNewTitle = (e) => {
-    setNewTitle(e.target.value);
-  };
-  const handleSetNewText = (e) => {
-    setNewText(e.target.value);
-  };
-
-  const handleEditPost = (id, title, text) => {
-    const foundPost = posts.findIndex((post) => post.id === id);
-    if (title === "" || text === "") {
-      return toast({
-        title: "文字を入力してください",
-        position: "top",
-        status: "warning",
-        duration: 2000,
-        isClosable: true,
-      });
-    }
-    const replaceItemAtIndex = (posts, foundPost, newValue) => {
-      return [
-        ...posts.slice(0, foundPost),
-        newValue,
-        ...posts.slice(foundPost + 1),
-      ];
-    };
-    setPosts(() => {
-      return replaceItemAtIndex(posts, foundPost, {
-        ...posts[foundPost],
-        title: title,
-        text: text,
-      });
-    });
-
-    toast({
-      title: "保存しました.",
-      position: "top",
-      status: "success",
-      duration: 1000,
-      isClosable: true,
-    });
-    router.push("/editPosts");
-  };
-
-  // const handleDeletePost = (id) => {
-  //   const result = window.confirm("本当に削除してもよろしいですか?");
-  //   if (result) {
-  //     const foundPost = posts.findIndex((post) => post.id === id);
-  //     const deletePost = [...posts];
-  //     deletePost.splice(foundPost, 1);
-  //     setPosts(deletePost);
-
-  //     toast({
-  //       title: "削除しました.",
-  //       position: "top",
-  //       status: "error",
-  //       duration: 1000,
-  //       isClosable: true,
-  //     });
-  //     router.push("/editPosts");
-  //   }
-  // };
-
+  
+  // Post更新用カスタムフック
+  const { handleEditPost } = UseEidtPost();
+  // Post削除用カスタムフック
   const { handleDeletePost } = UseDeletePost();
 
   return (
@@ -136,24 +77,6 @@ const Edit = () => {
                   </Flex>
                 </FormControl>
                 <Divider borderColor="gray" borderBottomWidth="2px" />
-                {/* <FormControl>
-                  <Flex direction={["column", "row"]}>
-                    <Flex minW={24} width={24}>
-                      <FormLabel>タイトル</FormLabel>
-                      <Spacer />
-                      <Box>:</Box>
-                    </Flex>
-                    <Box>
-                      <Textarea
-                        ml={[0, 6]}
-                        borderColor="#bebaba"
-                        borderWidth="2px"
-                        value={newTitle}
-                        onChange={handleSetNewTitle}
-                      />
-                    </Box>
-                  </Flex>
-                </FormControl> */}
                 <FormControl>
                   <Flex direction={["column", "row"]}>
                     <Flex minW={24} width={24}>
@@ -167,7 +90,7 @@ const Edit = () => {
                       borderWidth="2px"
                       h="32px"
                       value={newTitle}
-                      onChange={handleSetNewTitle}
+                      onChange={(e) => setNewTitle(e.target.value)}
                     />
                   </Flex>
                 </FormControl>
@@ -185,7 +108,7 @@ const Edit = () => {
                       borderWidth="2px"
                       h="180px"
                       value={newText}
-                      onChange={handleSetNewText}
+                      onChange={(e) => setNewText(e.target.value)}
                     />
                   </Flex>
                 </FormControl>
