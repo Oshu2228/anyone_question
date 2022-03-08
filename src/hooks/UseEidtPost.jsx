@@ -6,6 +6,7 @@ import { db } from "../base/firebase";
 
 
 
+
 const UseEidtPost = () => {
   const [posts, setPosts] = useRecoilState(postsState);
   const router = useRouter();
@@ -48,7 +49,7 @@ const UseEidtPost = () => {
 
     db.collection("question").doc(id).set({
       title:title,
-      tex: text
+      text:text
     },{merge:true})
 
 

@@ -32,6 +32,8 @@ const TodoList = () => {
           title: doc.data().title,
           name: doc.data().name,
           text: doc.data().text,
+          comment: doc.data().comment,
+          
           // createDate: doc.data().timestamp.toDate(),
         })),
       ]);
