@@ -23,24 +23,10 @@ const handler = (path) => {
 };
 const TodoList = () => {
   const [posts, setPosts] = useRecoilState(postsState);
-  // firestore 試運転
-  // const [tasks, setTasks] = useState([{ id: "", title: "" }]);
-  // useEffect(() => {
-  //   const unSub = db.collection("tasks").onSnapshot((snapshot) => {
-  //     setTasks(
-  //       snapshot.docs.map((doc) => ({
-  //         id: doc.id,
-  //         title: doc.data().title,
-  //       }))
-  //     );
-  //   });
-  //   return () => unSub();
-  // }, []);
-
+ 
   useEffect(() => {
     const unSub = db.collection("question").onSnapshot((snapshot) => {
       setPosts([
-        ...posts,
         ...snapshot.docs.map((doc) => ({
           id: doc.id,
           title: doc.data().title,
