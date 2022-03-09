@@ -52,7 +52,7 @@ const Header = () => {
               <DrawerBody>
                 <Flex mb="24px" alignItems="center">
                   <Avatar src="https://bit.ly/broken-link" mr="8px" />
-                  <Text>リヴァイ</Text>
+                  <Text>You</Text>
                 </Flex>
 
                 <Flex

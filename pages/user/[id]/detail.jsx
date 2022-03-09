@@ -7,7 +7,6 @@ import {
   FormLabel,
   Spacer,
   Stack,
-  Text,
 } from "@chakra-ui/react";
 import Head from "next/head";
 import Router, { useRouter } from "next/router";
@@ -15,7 +14,7 @@ import { useRecoilValue } from "recoil";
 import { postsState } from "../../../src/atoms/atom";
 import styles from "../../../styles/Container.module.css";
 import Header from "../../../src/components/Header";
-import BackButton from "../../../src/components/atoms/button/BackButton"
+import BackButton from "../../../src/components/atoms/button/BackButton";
 const handler = (path) => {
   Router.push(path);
 };
@@ -24,9 +23,9 @@ const Detail = () => {
   const posts = useRecoilValue(postsState);
   const router = useRouter();
   const post = posts.filter((post) => {
-    return post.id === (router.query.id);
+    return post.id === router.query.id;
   });
-console.log(posts);
+
   return (
     <>
       <Head>
@@ -63,7 +62,7 @@ console.log(posts);
                 </FormControl>
                 <Divider borderColor="gray" borderBottomWidth="2px" />
                 <FormControl>
-                  <Flex minH={44} direction={["column", "row"]}>
+                  <Flex minH={24} direction={["column", "row"]}>
                     <Flex minW={24} width={24}>
                       <FormLabel>質問内容</FormLabel>
                       <Spacer />
@@ -73,19 +72,26 @@ console.log(posts);
                   </Flex>
                 </FormControl>
                 <Divider borderColor="gray" borderBottomWidth="2px" />
+                <FormControl>
+                  <Flex minH={24} direction={["column", "row"]}>
+                    <Flex minW={24} width={24}>
+                      <FormLabel>回答一覧</FormLabel>
+                      <Spacer />
+                    </Flex>
+                    <Box ml={3}>
+                      <ul>
+                        {post[0]?.comment.map((com, index) => (
+                          <li key={index}>{com}</li>
+                        ))}
+                      </ul>
+                    </Box>
+                  </Flex>
+                </FormControl>
               </Stack>
             </Container>
             <Spacer />
-            <Stack
-              spacing={[1, 5]}
-              direction={["column", "row"]}
-              justify="center"
-            >
-              <Text fontSize={32}>Yes:{post[0]?.yes}</Text>
-              <Text fontSize={32}>No:{post[0]?.no}</Text>
-            </Stack>
             <Box pos="absolute" bottom="8" right={6}>
-            <BackButton onClick={() => handler("/user")}/>
+              <BackButton onClick={() => handler("/user")} />
             </Box>
           </form>
         </Container>

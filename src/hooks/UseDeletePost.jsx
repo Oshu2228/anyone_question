@@ -9,7 +9,7 @@ const UseDeletePost = () => {
   const router = useRouter();
   const toast = useToast();
 
-  const handleDeletePost = (id, props) => {
+  const handleDeletePost = (id) => {
     const result = window.confirm("本当に削除してもよろしいですか?");
     if (result) {
       const foundPost = posts.findIndex((post) => post.id === id);
@@ -25,7 +25,7 @@ const UseDeletePost = () => {
         isClosable: true,
       });
 
-      db.collection("question").doc(props.id).delete();
+     db.collection("question").doc(id).delete();
       
       router.push("/editPosts");
     }

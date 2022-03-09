@@ -45,6 +45,7 @@ const UseAddPost = () => {
         title: addTitle,
         text: addText,
         createDate: new Date(),
+        comment:[]
       });
 
       router.push("/user");

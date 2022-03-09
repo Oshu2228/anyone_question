@@ -14,7 +14,7 @@ import {
 } from "@chakra-ui/react";
 import Head from "next/head";
 import Router, { useRouter } from "next/router";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 // import { pushQuestion } from "../../firebase";
 import Header from "../../../src/components/Header";
 import styles from "../../../styles/Container.module.css";
@@ -23,33 +23,37 @@ import UserButton from "../../../src/components/atoms/button/UserButton";
 import BackButton from "../../../src/components/atoms/button/BackButton";
 import UseDeletePost from "../../../src/hooks/UseDeletePost";
 import UseEidtPost from "../../../src/hooks/UseEidtPost";
+
 const handler = (path) => {
   Router.push(path);
 };
 
 const Edit = () => {
+  const posts = useRecoilValue(postsState);
   const [newTitle, setNewTitle] = useState("");
   const [newText, setNewText] = useState("");
-  const posts = useRecoilValue(postsState);
-  const router = useRouter();
-  const { isReady } = useRouter();
 
+  const { query, isReady } = useRouter();
+  
   useEffect(() => {
     if (isReady) {
       setNewTitle(editPost[0]?.title);
       setNewText(editPost[0]?.text);
     } else {
-      return;
+      return ;
     }
   }, [isReady]);
+  console.log(isReady);
   const editPost = posts.filter((post) => {
-    return post.id === (router.query.id);
+    return post.id === query.id;
   });
-  
+
+
   // Post更新用カスタムフック
   const { handleEditPost } = UseEidtPost();
   // Post削除用カスタムフック
   const { handleDeletePost } = UseDeletePost();
+  console.log(newTitle);
 
   return (
     <>
@@ -116,7 +120,7 @@ const Edit = () => {
             <Spacer />
           </form>
           <Box pos="absolute" bottom="8" right="0">
-            <BackButton onClick={() => handler("/user")} />
+            <BackButton onClick={() => handler("/editPosts")} />
             <Button
               colorScheme="red"
               onClick={() => handleDeletePost(editPost[0]?.id)}

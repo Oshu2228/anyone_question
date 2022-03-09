@@ -4,14 +4,10 @@ import { useRecoilState } from "recoil";
 import { postsState } from "../atoms/atom";
 import { db } from "../base/firebase";
 
-
-
-
 const UseEidtPost = () => {
   const [posts, setPosts] = useRecoilState(postsState);
   const router = useRouter();
   const toast = useToast();
-  
 
   const handleEditPost = (id, title, text) => {
     const foundPost = posts.findIndex((post) => post.id === id);
@@ -52,10 +48,8 @@ const UseEidtPost = () => {
       text:text
     },{merge:true})
 
-
     router.push("/editPosts");
   };
-
 
   return {handleEditPost}
 };

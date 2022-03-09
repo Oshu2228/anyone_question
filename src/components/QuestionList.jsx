@@ -16,7 +16,7 @@ import { postsState } from "../atoms/atom";
 import UserButton from "./atoms/button/UserButton";
 import AddButton from "./atoms/button/AddButton";
 import { db } from "../../src/base/firebase";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 const handler = (path) => {
   Router.push(path);
