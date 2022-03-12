@@ -7,9 +7,10 @@ import { db } from "../base/firebase";
 const UseEidtPost = () => {
   const [posts, setPosts] = useRecoilState(postsState);
   const router = useRouter();
-  const toast = useToast();
+  const toast = useToast();    
 
   const handleEditPost = (id, title, text) => {
+
     const foundPost = posts.findIndex((post) => post.id === id);
     if (title === "" || text === "") {
       return toast({

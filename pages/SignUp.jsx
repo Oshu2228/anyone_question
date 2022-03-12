@@ -1,3 +1,4 @@
+// アカウント新規作成画面
 import Head from "next/head";
 import React, { useState } from "react";
 import {

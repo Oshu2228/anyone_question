@@ -1,3 +1,4 @@
+// ログイン画面
 import Head from "next/head";
 import React, { useState } from "react";
 import {
@@ -106,11 +107,15 @@ const Login = () => {
                   <Link href="/SignUp">
                     <a>ユーザー登録はこちらから</a>
                   </Link>
+
                 </Box>
+                  <Text>ゲストID:example@xxx.com</Text>
+                  <Text>ゲストPass:123abc</Text>
               </Stack>
             </Box>
           </Flex>
         </Container>
+        
       </Container>
     </>
   );

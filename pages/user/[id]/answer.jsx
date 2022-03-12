@@ -1,3 +1,4 @@
+// 回答画面
 import React, { useState } from "react";
 import {
   Box,
@@ -78,7 +79,6 @@ const Answer = () => {
 
     router.push("/user");
   };
-  console.log(posts);
 
   return (
     <>

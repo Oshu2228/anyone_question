@@ -1,3 +1,4 @@
+// 編集画面
 import React, { useEffect, useState } from "react";
 import {
   Box,
@@ -14,8 +15,7 @@ import {
 } from "@chakra-ui/react";
 import Head from "next/head";
 import Router, { useRouter } from "next/router";
-import { useRecoilState, useRecoilValue } from "recoil";
-// import { pushQuestion } from "../../firebase";
+import { useRecoilValue } from "recoil";
 import Header from "../../../src/components/Header";
 import styles from "../../../styles/Container.module.css";
 import { postsState } from "../../../src/atoms/atom";
@@ -30,30 +30,29 @@ const handler = (path) => {
 
 const Edit = () => {
   const posts = useRecoilValue(postsState);
-  const [newTitle, setNewTitle] = useState("");
-  const [newText, setNewText] = useState("");
-
+  const [newTitle, setNewTitle] = useState();
+  const [newText, setNewText] = useState();
   const { query, isReady } = useRouter();
+
   
   useEffect(() => {
     if (isReady) {
-      setNewTitle(editPost[0]?.title);
-      setNewText(editPost[0]?.text);
+      setNewTitle(post[0]?.title);
+      setNewText(post[0]?.text);
     } else {
       return ;
     }
   }, [isReady]);
   console.log(isReady);
-  const editPost = posts.filter((post) => {
+  const post = posts.filter((post) => {
     return post.id === query.id;
   });
-
+  console.log(post[0]?.title);
 
   // Post更新用カスタムフック
   const { handleEditPost } = UseEidtPost();
   // Post削除用カスタムフック
   const { handleDeletePost } = UseDeletePost();
-  console.log(newTitle);
 
   return (
     <>
@@ -75,7 +74,7 @@ const Edit = () => {
                       <Spacer />
                       <Box>:</Box>
                     </Flex>
-                    <Box ml={3}>{editPost[0]?.name}</Box>
+                    <Box ml={3}>{post[0]?.name}</Box>
                   </Flex>
                 </FormControl>
                 <Divider borderColor="gray" borderBottomWidth="2px" />
@@ -123,7 +122,7 @@ const Edit = () => {
             <BackButton onClick={() => handler("/editPosts")} />
             <Button
               colorScheme="red"
-              onClick={() => handleDeletePost(editPost[0]?.id)}
+              onClick={() => handleDeletePost(post[0]?.id)}
               mr="2"
             >
               削除する
@@ -131,7 +130,7 @@ const Edit = () => {
             <UserButton
               colorScheme={"blue"}
               text={"保存"}
-              onClick={() => handleEditPost(editPost[0]?.id, newTitle, newText)}
+              onClick={() => handleEditPost(post[0]?.id, newTitle, newText)}
             />
           </Box>
         </Container>

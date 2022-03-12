@@ -1,3 +1,4 @@
+// 編集一覧画面
 import { useRecoilValue } from "recoil";
 import {
   Container,
@@ -35,14 +36,14 @@ const Edit = () => {
       <Container className={styles.mainContainer}>
         <Header />
         <Container className={styles.subContainer}>
-          <AddButton/>
+          <AddButton />
           <Container h="100%" maxW="100%" mt="5">
             <Table>
               <Thead bg="#F4EDEA">
                 <Tr>
                   <Th>名前</Th>
                   <Th>質問内容</Th>
-                  <Th>作成日時</Th>
+                  {/* <Th>作成日時</Th> */}
                 </Tr>
               </Thead>
               <Tbody>
@@ -56,14 +57,16 @@ const Edit = () => {
                     <Td>
                       <Box display="flex">
                         <Text lineHeight="40px">{post.title}</Text>
-                        <UserButton
-                          text={"編集"}
-                          colorScheme={"green"}
-                          onClick={() => handler(`/user/${post.id}/edit`)}
-                        />
+                        <Box ml="auto">
+                          <UserButton
+                            text={"編集"}
+                            colorScheme={"green"}
+                            onClick={() => handler(`/user/${post.id}/edit`)}
+                          />
+                        </Box>
                       </Box>
                     </Td>
-                    <Td>{post.createDate}</Td>
+                    {/* <Td>{post.createDate}</Td> */}
                   </Tr>
                 ))}
               </Tbody>

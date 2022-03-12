@@ -27,6 +27,7 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     const unSub = db.collection("question").onSnapshot((snapshot) => {
+      
       setPosts([
         ...snapshot.docs.map((doc) => ({
           id: doc.id,
@@ -34,7 +35,8 @@ export function AuthProvider({ children }) {
           name: doc.data().name,
           text: doc.data().text,
           comment: doc.data().comment,
-          // createDate: doc.data().timestamp.toDate(),
+          // 日時表示実装中
+          // createDate: doc.data().createDate.toDate(),
         })),
       ]);
     });

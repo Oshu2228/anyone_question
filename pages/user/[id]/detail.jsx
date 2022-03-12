@@ -1,3 +1,4 @@
+// 詳細画面
 import {
   Box,
   Container,
