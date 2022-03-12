@@ -4,7 +4,7 @@ import { useRecoilState } from "recoil";
 import { postsState } from "../atoms/atom";
 import { db } from "../base/firebase";
 
-const UseDeletePost = () => {
+const useDeletePost = () => {
   const [posts, setPosts] = useRecoilState(postsState);
   const router = useRouter();
   const toast = useToast();
@@ -34,4 +34,4 @@ const UseDeletePost = () => {
   return { handleDeletePost };
 };
 
-export default UseDeletePost;
+export default useDeletePost;

@@ -15,11 +15,8 @@ import { LockIcon } from "@chakra-ui/icons";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { auth } from "../src/base/firebase";
-// const handler = (path) => {
-//   Router.push(path);
-// };
 
-const Login = () => {
+const useSignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -103,4 +100,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default useSignUp;

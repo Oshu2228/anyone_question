@@ -2,9 +2,6 @@ import { ArrowLeftIcon } from "@chakra-ui/icons";
 import { Button } from "@chakra-ui/react";
 import Router from "next/router";
 import React from "react";
-const handler = (path) => {
-  Router.push(path);
-};
 
 const BackButton = (props) => {
   const {onClick} = props;

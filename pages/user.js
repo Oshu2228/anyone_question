@@ -1,12 +1,11 @@
 // 質問一覧画面
-
 import { Container } from "@chakra-ui/react";
 import Head from "next/head";
 import QuestionList from "../src/components/QuestionList";
 import Header from "../src/components/Header";
 import styles from "../styles/Container.module.css"
 
-const user = () => {
+const useList = () => {
   return (
     <>
       <Head>
@@ -24,4 +23,4 @@ const user = () => {
   );
 };
 
-export default user;
+export default useList;

@@ -4,7 +4,7 @@ import { useRecoilState } from "recoil";
 import { postsState } from "../atoms/atom";
 import { db } from "../base/firebase";
 
-const UseEidtPost = () => {
+const useEidtPost = () => {
   const [posts, setPosts] = useRecoilState(postsState);
   const router = useRouter();
   const toast = useToast();    
@@ -55,4 +55,4 @@ const UseEidtPost = () => {
   return {handleEditPost}
 };
 
-export default UseEidtPost;
+export default useEidtPost;
