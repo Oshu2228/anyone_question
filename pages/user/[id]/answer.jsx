@@ -8,12 +8,8 @@ import {
   Flex,
   FormControl,
   FormLabel,
-  Input,
-  Radio,
-  RadioGroup,
   Spacer,
   Stack,
-  Text,
   Textarea,
   useToast,
 } from "@chakra-ui/react";
@@ -31,7 +27,7 @@ const handler = (path) => {
   Router.push(path);
 };
 
-const Answer = () => {
+const useAnswer = () => {
   const [posts, setPosts] = useRecoilState(postsState);
   const [value, setValue] = useState();
   const router = useRouter();
@@ -162,4 +158,4 @@ const Answer = () => {
   );
 };
 
-export default Answer;
+export default useAnswer;

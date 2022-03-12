@@ -16,7 +16,7 @@ import { useRouter } from "next/router";
 import { auth, provider } from "../src/base/firebase";
 import Link from "next/link";
 
-const Login = () => {
+const useLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -121,4 +121,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default useLogin;

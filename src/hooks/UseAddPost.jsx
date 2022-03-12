@@ -1,13 +1,10 @@
 import { useToast } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { useRecoilState } from "recoil";
-import { postsState } from "../atoms/atom";
-import { db, pushQuestion } from "../base/firebase";
+import { db } from "../base/firebase";
 import firebase from "firebase";
 import "firebase/firestore";
 
-const UseAddPost = () => {
-  const [posts, setPosts] = useRecoilState(postsState);
+const useAddPost = () => {
   const router = useRouter();
   const toast = useToast();
 
@@ -37,4 +34,4 @@ const UseAddPost = () => {
   return { newQuestion };
 };
 
-export default UseAddPost;
+export default useAddPost;

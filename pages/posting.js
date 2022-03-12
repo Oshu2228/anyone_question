@@ -12,41 +12,23 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 import Head from "next/head";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Header from "../src/components/Header";
 import BackButton from "../src/components/atoms/button/BackButton";
 import UserButton from "../src/components/atoms/button/UserButton";
 import styles from "../styles/Container.module.css";
 import UseAddPost from "../src/hooks/UseAddPost";
 import Router from "next/router";
-import { useRecoilState } from "recoil";
-import { postsState } from "../src/atoms/atom";
-import { db } from "../src/base/firebase";
 const handler = (path) => {
   Router.push(path);
 };
 
-const user = () => {
+const usePost = () => {
   const [addName, setAddName] = useState("");
   const [addTitle, setAddTitle] = useState("");
   const [addText, setAddText] = useState("");
   // Post追加用カスタムフック
   const { newQuestion } = UseAddPost();
-
-  // const [posts,setPosts] = useRecoilState(postsState)
-  // useEffect(() => {
-  //   const unSub = db.collection("question").onSnapshot((snapshot) => {
-  //     setPosts(
-  //       snapshot.docs.map((doc) => ({
-  //         id: doc.id,
-  //         title: doc.data().title,
-  //         name: doc.data().name,
-  //         text: doc.data().text
-  //       }))
-  //     );
-  //   });
-  //   return () => unSub();
-  // }, []);
 
   return (
     <>
@@ -136,4 +118,4 @@ const user = () => {
   );
 };
 
-export default user;
+export default usePost;

@@ -28,7 +28,7 @@ const handler = (path) => {
   Router.push(path);
 };
 
-const Edit = () => {
+const useEdit = () => {
   const posts = useRecoilValue(postsState);
   const [newTitle, setNewTitle] = useState();
   const [newText, setNewText] = useState();
@@ -139,4 +139,4 @@ const Edit = () => {
   );
 };
 
-export default Edit;
+export default useEdit;

@@ -20,7 +20,7 @@ const handler = (path) => {
   Router.push(path);
 };
 
-const Detail = () => {
+const useDetail = () => {
   const posts = useRecoilValue(postsState);
   const router = useRouter();
   const post = posts.filter((post) => {
@@ -101,4 +101,4 @@ const Detail = () => {
   );
 };
 
-export default Detail;
+export default useDetail;
