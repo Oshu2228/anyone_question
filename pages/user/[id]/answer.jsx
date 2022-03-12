@@ -1,3 +1,4 @@
+// 回答画面
 import React, { useState } from "react";
 import {
   Box,
@@ -7,11 +8,14 @@ import {
   Flex,
   FormControl,
   FormLabel,
+  Input,
   Radio,
   RadioGroup,
   Spacer,
   Stack,
   Text,
+  Textarea,
+  useToast,
 } from "@chakra-ui/react";
 import Head from "next/head";
 import Router, { useRouter } from "next/router";
@@ -20,6 +24,9 @@ import Header from "../../../src/components/Header";
 import styles from "../../../styles/Container.module.css";
 import { postsState } from "../../../src/atoms/atom";
 import BackButton from "../../../src/components/atoms/button/BackButton";
+import UserButton from "../../../src/components/atoms/button/UserButton";
+import { db } from "../../../src/base/firebase";
+import firebase from "firebase";
 const handler = (path) => {
   Router.push(path);
 };
@@ -27,16 +34,23 @@ const handler = (path) => {
 const Answer = () => {
   const [posts, setPosts] = useRecoilState(postsState);
   const [value, setValue] = useState();
-  // const [yesCount, setYesCount] = useState(Number);
-  // const [noCount, setNoCount] = useState(Number);
-  // const [count, setCount] = useState(0);
   const router = useRouter();
+  const toast = useToast();
   const post = posts.filter((post) => {
-    return post.id === Number(router.query.id);
+    return post.id === router.query.id;
   });
 
-  const handleUpdateAnswer = (id, value) => {
+  const sentAnswer = (id, value) => {
     const foundPost = posts.findIndex((post) => post.id === id);
+    if (value === "") {
+      return toast({
+        title: "文字を入力してください",
+        position: "top",
+        status: "warning",
+        duration: 2000,
+        isClosable: true,
+      });
+    }
     const replaceItemAtIndex = (posts, foundPost, newValue) => {
       return [
         ...posts.slice(0, foundPost),
@@ -44,13 +58,25 @@ const Answer = () => {
         ...posts.slice(foundPost + 1),
       ];
     };
-
     setPosts(() => {
       return replaceItemAtIndex(posts, foundPost, {
         ...posts[foundPost],
-        yes: value,
+        value: [value],
       });
     });
+
+    toast({
+      title: "保存しました.",
+      position: "top",
+      status: "success",
+      duration: 1000,
+      isClosable: true,
+    });
+
+    db.collection("question").doc(id).update({
+      comment: firebase.firestore.FieldValue.arrayUnion(value)
+    },{merge:true});
+
     router.push("/user");
   };
 
@@ -100,37 +126,34 @@ const Answer = () => {
                   </Flex>
                 </FormControl>
                 <Divider borderColor="gray" borderBottomWidth="2px" />
+                <FormControl>
+                  <Flex direction={["column", "row"]}>
+                    <Flex minW={24} width={24}>
+                      <FormLabel>回答</FormLabel>
+                      <Spacer />
+                      <Box>:</Box>
+                    </Flex>
+                    <Textarea
+                      ml={[0, 6]}
+                      borderColor="#bebaba"
+                      borderWidth="2px"
+                      h="32px"
+                      value={value}
+                      onChange={(e) => setValue(e.target.value)}
+                    />
+                  </Flex>
+                </FormControl>
               </Stack>
             </Container>
             <Spacer />
 
-            <Stack
-              spacing={[1, 5]}
-              direction={["column", "row"]}
-              justify="center"
-            >
-              <RadioGroup onChange={setValue} value={value}>
-                <Stack direction="row">
-                  <Radio value="yes" size="lg">
-                    <Text fontSize={32}>Yes</Text>
-                  </Radio>
-                  <Radio value="no" size="lg">
-                    <Text fontSize={32}>No</Text>
-                  </Radio>
-                </Stack>
-              </RadioGroup>
-            </Stack>
             <Box pos="absolute" bottom="8" right={6}>
-            <BackButton onClick={() => handler("/user")}/>
-              {/* <Button
-                colorScheme="linkedin"
-                color="#FFFFFF"
-                mr="28px"
-                w="88px"
-                onClick={() => handleUpdateAnswer(post[0]?.id, value)}
-              >
-                送信する
-              </Button> */}
+              <BackButton onClick={() => handler("/user")} />
+              <UserButton
+                colorScheme={"linkedin"}
+                text={"送信"}
+                onClick={() => sentAnswer(post[0]?.id, value)}
+              />
             </Box>
           </form>
         </Container>

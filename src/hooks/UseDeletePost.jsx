@@ -2,7 +2,7 @@ import { useToast } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useRecoilState } from "recoil";
 import { postsState } from "../atoms/atom";
-
+import { db } from "../base/firebase";
 
 const UseDeletePost = () => {
   const [posts, setPosts] = useRecoilState(postsState);
@@ -24,10 +24,14 @@ const UseDeletePost = () => {
         duration: 1000,
         isClosable: true,
       });
+
+     db.collection("question").doc(id).delete();
+      
       router.push("/editPosts");
     }
   };
-  return {handleDeletePost}
-}
 
-export default UseDeletePost
+  return { handleDeletePost };
+};
+
+export default UseDeletePost;

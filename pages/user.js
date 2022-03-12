@@ -1,3 +1,5 @@
+// 質問一覧画面
+
 import { Container } from "@chakra-ui/react";
 import Head from "next/head";
 import QuestionList from "../src/components/QuestionList";

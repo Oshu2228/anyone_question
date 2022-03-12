@@ -1,5 +1,7 @@
 import firebase from "firebase";
 import "firebase/auth";
+import "firebase/firestore";
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyCJ101C9JnMbyefVZiJregrm2n1aoVMK98",
@@ -22,4 +24,5 @@ export const auth = firebase.auth();
 export const pushQuestion = ({ questioner, count }) => {
   questionRef.push({ questioner, count });
 };
+export const db = firebase.firestore();
 

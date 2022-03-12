@@ -1,3 +1,4 @@
+// 新規投稿画面
 import {
   Box,
   Container,
@@ -11,13 +12,16 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 import Head from "next/head";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../src/components/Header";
 import BackButton from "../src/components/atoms/button/BackButton";
 import UserButton from "../src/components/atoms/button/UserButton";
 import styles from "../styles/Container.module.css";
 import UseAddPost from "../src/hooks/UseAddPost";
-import  Router  from "next/router";
+import Router from "next/router";
+import { useRecoilState } from "recoil";
+import { postsState } from "../src/atoms/atom";
+import { db } from "../src/base/firebase";
 const handler = (path) => {
   Router.push(path);
 };
@@ -28,6 +32,21 @@ const user = () => {
   const [addText, setAddText] = useState("");
   // Post追加用カスタムフック
   const { newQuestion } = UseAddPost();
+
+  // const [posts,setPosts] = useRecoilState(postsState)
+  // useEffect(() => {
+  //   const unSub = db.collection("question").onSnapshot((snapshot) => {
+  //     setPosts(
+  //       snapshot.docs.map((doc) => ({
+  //         id: doc.id,
+  //         title: doc.data().title,
+  //         name: doc.data().name,
+  //         text: doc.data().text
+  //       }))
+  //     );
+  //   });
+  //   return () => unSub();
+  // }, []);
 
   return (
     <>
@@ -68,15 +87,16 @@ const user = () => {
                       <Spacer />
                       <Box>:</Box>
                     </Flex>
-                    <Box>
+                    
                       <Input
                         ml={[0, 6]}
                         borderColor="#bebaba"
                         borderWidth="2px"
+                        h="32px"
                         value={addTitle}
                         onChange={(e) => setAddTitle(e.target.value)}
                       />
-                    </Box>
+                    
                   </Flex>
                 </FormControl>
                 <Divider borderColor="gray" borderBottomWidth="2px" />

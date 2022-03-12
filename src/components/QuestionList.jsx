@@ -12,9 +12,9 @@ import {
   Box,
 } from "@chakra-ui/react";
 import Router from "next/router";
-import {postsState} from "../atoms/atom"
+import { postsState } from "../atoms/atom";
 import UserButton from "./atoms/button/UserButton";
-import AddButton from "./atoms/button/AddButton"
+import AddButton from "./atoms/button/AddButton";
 
 const handler = (path) => {
   Router.push(path);
@@ -31,7 +31,7 @@ const TodoList = () => {
             <Tr>
               <Th>名前</Th>
               <Th>質問内容</Th>
-              <Th>作成日時</Th>
+              {/* <Th>作成日時</Th> */}
             </Tr>
           </Thead>
 
@@ -39,17 +39,10 @@ const TodoList = () => {
             {posts.map((post) => (
               <Tr key={post.id}>
                 <Td h="65.5px">
-                  <Link href={`/todos/${post.id}`} passHref>
-                    <Text
-                      cursor="pointer"
-                      _hover={{ opacity: 0.7 }}
-                      lineHeight="32.5px"
-                    >
-                      {post.name}
-                    </Text>
-                  </Link>
+                  <Text _hover={{ opacity: 0.7 }} lineHeight="32.5px">
+                    {post.name}
+                  </Text>
                 </Td>
-
                 <Td>
                   <Box display="flex">
                     <Text lineHeight="40px">{post.title}</Text>
@@ -67,7 +60,7 @@ const TodoList = () => {
                     </Box>
                   </Box>
                 </Td>
-                <Td>{post.createDate}</Td>
+                {/* <Td>{post.createDate}</Td> */}
               </Tr>
             ))}
           </Tbody>

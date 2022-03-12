@@ -1,3 +1,4 @@
+// 編集画面
 import React, { useEffect, useState } from "react";
 import {
   Box,
@@ -15,7 +16,6 @@ import {
 import Head from "next/head";
 import Router, { useRouter } from "next/router";
 import { useRecoilValue } from "recoil";
-// import { pushQuestion } from "../../firebase";
 import Header from "../../../src/components/Header";
 import styles from "../../../styles/Container.module.css";
 import { postsState } from "../../../src/atoms/atom";
@@ -23,29 +23,32 @@ import UserButton from "../../../src/components/atoms/button/UserButton";
 import BackButton from "../../../src/components/atoms/button/BackButton";
 import UseDeletePost from "../../../src/hooks/UseDeletePost";
 import UseEidtPost from "../../../src/hooks/UseEidtPost";
+
 const handler = (path) => {
   Router.push(path);
 };
 
 const Edit = () => {
-  const [newTitle, setNewTitle] = useState("");
-  const [newText, setNewText] = useState("");
   const posts = useRecoilValue(postsState);
-  const router = useRouter();
-  const { isReady } = useRouter();
+  const [newTitle, setNewTitle] = useState();
+  const [newText, setNewText] = useState();
+  const { query, isReady } = useRouter();
 
+  
   useEffect(() => {
     if (isReady) {
-      setNewTitle(editPost[0].title);
-      setNewText(editPost[0].text);
+      setNewTitle(post[0]?.title);
+      setNewText(post[0]?.text);
     } else {
-      return;
+      return ;
     }
   }, [isReady]);
-  const editPost = posts.filter((post) => {
-    return post.id === Number(router.query.id);
+  console.log(isReady);
+  const post = posts.filter((post) => {
+    return post.id === query.id;
   });
-  
+  console.log(post[0]?.title);
+
   // Post更新用カスタムフック
   const { handleEditPost } = UseEidtPost();
   // Post削除用カスタムフック
@@ -71,14 +74,14 @@ const Edit = () => {
                       <Spacer />
                       <Box>:</Box>
                     </Flex>
-                    <Box ml={3}>{editPost[0]?.name}</Box>
+                    <Box ml={3}>{post[0]?.name}</Box>
                   </Flex>
                 </FormControl>
                 <Divider borderColor="gray" borderBottomWidth="2px" />
                 <FormControl>
                   <Flex direction={["column", "row"]}>
                     <Flex minW={24} width={24}>
-                      <FormLabel>質問内容</FormLabel>
+                      <FormLabel>タイトル</FormLabel>
                       <Spacer />
                       <Box>:</Box>
                     </Flex>
@@ -116,10 +119,10 @@ const Edit = () => {
             <Spacer />
           </form>
           <Box pos="absolute" bottom="8" right="0">
-            <BackButton onClick={() => handler("/user")} />
+            <BackButton onClick={() => handler("/editPosts")} />
             <Button
               colorScheme="red"
-              onClick={() => handleDeletePost(editPost[0]?.id)}
+              onClick={() => handleDeletePost(post[0]?.id)}
               mr="2"
             >
               削除する
@@ -127,7 +130,7 @@ const Edit = () => {
             <UserButton
               colorScheme={"blue"}
               text={"保存"}
-              onClick={() => handleEditPost(editPost[0]?.id, newTitle, newText)}
+              onClick={() => handleEditPost(post[0]?.id, newTitle, newText)}
             />
           </Box>
         </Container>
