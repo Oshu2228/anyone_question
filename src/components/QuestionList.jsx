@@ -9,64 +9,43 @@ import {
   Thead,
   Tr,
   Box,
+  Wrap,
+  WrapItem,
 } from "@chakra-ui/react";
 import Router from "next/router";
 import { postsState } from "../atoms/atom";
 import UserButton from "./atoms/button/UserButton";
 import AddButton from "./atoms/button/AddButton";
+import UserCard from "./UserCard";
 
 const handler = (path) => {
   Router.push(path);
 };
-const TodoList = () => {
+const PostList = () => {
   const posts = useRecoilValue(postsState);
 
   return (
     <>
       <AddButton />
-      <Container h="100%" maxW="100%" mt="5">
-        <Table>
-          <Thead bg="#F4EDEA">
-            <Tr>
-              <Th>名前</Th>
-              <Th>質問内容</Th>
-              {/* <Th>作成日時</Th> */}
-            </Tr>
-          </Thead>
 
-          <Tbody>
-            {posts.map((post) => (
-              <Tr key={post.id}>
-                <Td h="65.5px">
-                  <Text _hover={{ opacity: 0.7 }} lineHeight="32.5px">
-                    {post.name}
-                  </Text>
-                </Td>
-                <Td>
-                  <Box display="flex">
-                    <Text lineHeight="40px">{post.title}</Text>
-                    <Box ml="auto">
-                      <UserButton
-                        colorScheme={"purple"}
-                        text={"詳細"}
-                        onClick={() => handler(`/user/${post.id}/detail`)}
-                      />
-                      <UserButton
-                        colorScheme={"teal"}
-                        text={"回答"}
-                        onClick={() => handler(`/user/${post.id}/answer`)}
-                      />
-                    </Box>
-                  </Box>
-                </Td>
-                {/* <Td>{post.createDate}</Td> */}
-              </Tr>
-            ))}
-          </Tbody>
-        </Table>
+      <Container  h="100%" maxW="100%" mt="5">
+    
+        <Wrap p={{ base: 2}}>
+          {posts.map((post) => (
+            <WrapItem key={post.id} mx="auto">
+              <UserCard
+                name={post.name}
+                title={post.title}
+                text={post.text}
+                detailClick={() => handler(`/user/${post.id}/detail`)}
+                answerClick={() => handler(`/user/${post.id}/answer`)}
+              />
+            </WrapItem>
+          ))}
+        </Wrap>
       </Container>
     </>
   );
 };
 
-export default TodoList;
+export default PostList;

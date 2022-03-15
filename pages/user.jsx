@@ -1,7 +1,7 @@
 // 質問一覧画面
 import { Container } from "@chakra-ui/react";
 import Head from "next/head";
-import QuestionList from "../src/components/QuestionList";
+import PostList from "../src/components/QuestionList";
 import Header from "../src/components/Header";
 import styles from "../styles/Container.module.css"
 
@@ -16,7 +16,7 @@ const useList = () => {
       <Container className={styles.mainContainer}>
         <Header />
         <Container className={styles.subContainer}>
-          <QuestionList />
+          <PostList />
         </Container>
       </Container>
     </>
