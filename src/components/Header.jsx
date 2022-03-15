@@ -11,6 +11,7 @@ import {
   DrawerOverlay,
   Flex,
   Heading,
+  Icon,
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
@@ -18,6 +19,8 @@ import { Avatar } from "@chakra-ui/react";
 import  Router, { useRouter }  from "next/router";
 import { useRef } from "react";
 import { auth } from "../base/firebase";
+import { RiHome8Line } from "react-icons/ri";
+import Link from "next/link";
 const handler = (path) => {
   Router.push(path);
 };
@@ -58,10 +61,20 @@ const Header = () => {
                 <Flex
                   alignItems="center"
                   cursor="pointer"
+                  onClick={() => handler("/user")}
+                  _hover={{ background: "#8FBFE0", borderRadius: "20px" }}
+                >
+                  <Icon as={RiHome8Line} mr="8px" w={7} h={7}/>
+                  <Text lineHeight="48px">ホーム</Text>
+                </Flex>
+
+                <Flex
+                  alignItems="center"
+                  cursor="pointer"
                   onClick={() => handler("/posting")}
                   _hover={{ background: "#8FBFE0", borderRadius: "20px" }}
                 >
-                  <AddIcon mr="8px" />
+                  <AddIcon mr="8px" w={6} h={6}/>
                   <Text lineHeight="48px">質問を作成</Text>
                 </Flex>
 
@@ -72,7 +85,7 @@ const Header = () => {
                   _hover={{ background: "#8FBFE0", borderRadius: "20px" }}
                   onClick={() => handler("/editPosts")}
                 >
-                  <EditIcon mr="8px" />
+                  <EditIcon mr="8px" w={6} h={6}/>
                   <Text lineHeight="48px">作成した質問を編集</Text>
                 </Flex>
                 <Box textAlign="center">
@@ -93,7 +106,9 @@ const Header = () => {
               </DrawerFooter>
             </DrawerContent>
           </Drawer>
-          <Text>edTalk</Text>
+          <Link href="/user">
+          <a>edTalk</a>
+          </Link>
         </Flex>
       </Heading>
     </>

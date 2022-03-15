@@ -72,9 +72,6 @@ const Edit = () => {
               </Tbody>
             </Table>
           </Container>
-          <Box pos="absolute" bottom={8} right={6}>
-            <BackButton onClick={() => handler("/user")} />
-          </Box>
         </Container>
       </Container>
     </>

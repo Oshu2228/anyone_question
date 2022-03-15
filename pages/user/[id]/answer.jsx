@@ -141,7 +141,6 @@ const useAnswer = () => {
                 </FormControl>
               </Stack>
             <Box display="flex"  mt={4} justifyContent="flex-end">
-              <BackButton onClick={() => handler("/user")} />
               <UserButton
                 colorScheme={"linkedin"}
                 text={"送信"}

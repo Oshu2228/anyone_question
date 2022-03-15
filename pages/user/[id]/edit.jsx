@@ -34,13 +34,12 @@ const useEdit = () => {
   const [newText, setNewText] = useState();
   const { query, isReady } = useRouter();
 
-  
   useEffect(() => {
     if (isReady) {
       setNewTitle(post[0]?.title);
       setNewText(post[0]?.text);
     } else {
-      return ;
+      return;
     }
   }, [isReady]);
   console.log(isReady);
@@ -72,7 +71,6 @@ const useEdit = () => {
                     <Flex minW={24} width={24}>
                       <FormLabel>名前</FormLabel>
                       <Spacer />
-                      <Box>:</Box>
                     </Flex>
                     <Box ml={3}>{post[0]?.name}</Box>
                   </Flex>
@@ -83,7 +81,6 @@ const useEdit = () => {
                     <Flex minW={24} width={24}>
                       <FormLabel>タイトル</FormLabel>
                       <Spacer />
-                      <Box>:</Box>
                     </Flex>
                     <Input
                       ml={[0, 6]}
@@ -101,7 +98,6 @@ const useEdit = () => {
                     <Flex minW={24} width={24}>
                       <FormLabel>質問内容</FormLabel>
                       <Spacer />
-                      <Box>:</Box>
                     </Flex>
                     <Textarea
                       ml={[0, 6]}
@@ -113,26 +109,30 @@ const useEdit = () => {
                     />
                   </Flex>
                 </FormControl>
-                <Divider borderColor="gray" borderBottomWidth="2px" />
               </Stack>
+              <Box display="flex" justifyContent="flex-end" mt={4}>
+                <BackButton onClick={() => handler("/editPosts")} />
+                {/* <Button
+              colorScheme="red"
+              onClick={() => handleDeletePost(post[0]?.id)}
+              ml={1}
+            >
+              削除
+            </Button> */}
+                <UserButton
+                  colorScheme={"red"}
+                  text={"削除"}
+                  onClick={() => handleDeletePost(post[0]?.id)}
+                />
+                <UserButton
+                  colorScheme={"blue"}
+                  text={"保存"}
+                  onClick={() => handleEditPost(post[0]?.id, newTitle, newText)}
+                />
+              </Box>
             </Container>
             <Spacer />
           </form>
-          <Box pos="absolute" bottom="8" right="0">
-            <BackButton onClick={() => handler("/editPosts")} />
-            <Button
-              colorScheme="red"
-              onClick={() => handleDeletePost(post[0]?.id)}
-              mr="2"
-            >
-              削除する
-            </Button>
-            <UserButton
-              colorScheme={"blue"}
-              text={"保存"}
-              onClick={() => handleEditPost(post[0]?.id, newTitle, newText)}
-            />
-          </Box>
         </Container>
       </Container>
     </>

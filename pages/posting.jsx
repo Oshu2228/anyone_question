@@ -99,11 +99,8 @@ const usePost = () => {
                     />
                   </Flex>
                 </FormControl>
-                <Divider borderColor="gray" borderBottomWidth="2px" />
               </Stack>
-            </Container>
-            <Spacer />
-            <Box pos="absolute" bottom="8" right="0">
+            <Box display="flex" justifyContent="flex-end" mt={4}>
               <BackButton onClick={() => handler("/user")} />
               <UserButton
                 text={"保存"}
@@ -111,6 +108,8 @@ const usePost = () => {
                 onClick={() => newQuestion(addName, addTitle, addText)}
               />
             </Box>
+            </Container>
+            <Spacer />
           </form>
         </Container>
       </Container>
