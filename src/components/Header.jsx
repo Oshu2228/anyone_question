@@ -93,7 +93,7 @@ const Header = () => {
               </DrawerFooter>
             </DrawerContent>
           </Drawer>
-          <Text>みんなの質問</Text>
+          <Text>edTalk</Text>
         </Flex>
       </Heading>
     </>
