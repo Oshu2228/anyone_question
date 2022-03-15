@@ -1,4 +1,4 @@
-// アカウント新規作成画面
+// ログイン画面
 import Head from "next/head";
 import React, { useState } from "react";
 import {
@@ -13,25 +13,36 @@ import {
 } from "@chakra-ui/react";
 import { LockIcon } from "@chakra-ui/icons";
 import { useRouter } from "next/router";
+import { auth, provider } from "../src/base/firebase";
 import Link from "next/link";
-import { auth } from "../src/base/firebase";
+import GoogleLogin from "../src/hooks/GoogleLogin";
 
-const useSignUp = () => {
+const useLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const router = useRouter();
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
-      await auth.createUserWithEmailAndPassword(email, password);
+      await auth.signInWithEmailAndPassword(email, password);
       router.push("/user");
     } catch (error) {
       console.log(error);
       setError(error.message);
     }
   };
-  
+  // const handleGoogleLogin = async () => {
+  //   try {
+  //     await auth.signInWithPopup(provider);
+  //     router.push("/user");
+  //   } catch (error) {
+  //     console.log(error);
+  //     setError(error.message);
+  //   }
+  // };
+  const {handleGoogleLogin} = GoogleLogin()
+
   return (
     <>
       <Head>
@@ -57,12 +68,13 @@ const useSignUp = () => {
           bg="#f1f5f9"
           padding="5"
         >
-          <Flex align="center" justify="center" height="100vh">
+        
+          <Flex align="center" justify="center" height="100vh" >
             <Box bg="white" w="sm" p={4} borderRadius="md" shadow="md">
               <Box textAlign="center">
                 <LockIcon boxSize={8} />
                 <Text fontWeight="bold" fontSize="24px">
-                  Sign Up
+                  Log In
                 </Text>
               </Box>
               <Stack spacing={6} py={4} px={10}>
@@ -78,26 +90,37 @@ const useSignUp = () => {
                   placeholder="password"
                   onChange={(e) => setPassword(e.currentTarget.value)}
                 />
-                {error && <p style={{ color: "red" }}>無効な設定です</p>}
+                {error && (
+                  <p style={{ color: "red" }}>
+                    メールアドレスとパスワードが一致していません
+                  </p>
+                )}
                 <Button colorScheme="blue" onClick={handleSubmit}>
-                  登録
+                  ログイン
+                </Button>
+                <Button colorScheme="teal" onClick={handleGoogleLogin}>
+                  Googleアカウントをお持ちの方
                 </Button>
                 <Box
                   color="#3399FF"
                   fontSize="12px"
                   _hover={{ opacity: "0.5" }}
                 >
-                  <Link href="/">
-                    <a>ユーザー登録済みの方はこちらから</a>
+                  <Link href="/signUp">
+                    <a>ユーザー登録はこちらから</a>
                   </Link>
+
                 </Box>
+                  <Text>ゲストID:example@xxx.com</Text>
+                  <Text>ゲストPass:123abc</Text>
               </Stack>
             </Box>
           </Flex>
         </Container>
+        
       </Container>
     </>
   );
 };
 
-export default useSignUp;
+export default useLogin;
