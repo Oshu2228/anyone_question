@@ -1,23 +1,22 @@
-import { ArrowLeftIcon } from "@chakra-ui/icons";
-import { Box, Button } from "@chakra-ui/react";
-import Router from "next/router";
 import React from "react";
+import { ArrowLeftIcon } from "@chakra-ui/icons";
+import { Button } from "@chakra-ui/react";
+import { useBreakpointValue } from "@chakra-ui/react";
 
 const BackButton = (props) => {
-  const {onClick} = props;
+  const { onClick } = props;
+  const buttonSize = useBreakpointValue(["sm", "sm", "md"]);
   return (
     <>
-     <Box display="flex" justifyContent="flex-end" >
       <Button
+        size={buttonSize}
         background="#F4D1AE"
         _hover={{ opacity: "0.8" }}
         onClick={onClick}
-        mr="8px"
       >
-        <ArrowLeftIcon mr="2" />
+        {/* <ArrowLeftIcon mr="2" /> */}
         戻る
       </Button>
-      </Box>
     </>
   );
 };

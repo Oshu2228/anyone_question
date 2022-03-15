@@ -86,7 +86,9 @@ const useDetail = () => {
                   </Flex>
                 </FormControl>
               </Stack>
-              <BackButton onClick={() => handler("/user")} />
+              <Box display="flex" justifyContent="flex-end" mt={4}>
+                <BackButton onClick={() => handler("/user")} />
+              </Box>
             </Container>
             <Spacer />
           </form>

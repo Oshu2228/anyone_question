@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import {
   Box,
-  Button,
   Container,
   Divider,
   Flex,
@@ -69,9 +68,14 @@ const useAnswer = () => {
       isClosable: true,
     });
 
-    db.collection("question").doc(id).update({
-      comment: firebase.firestore.FieldValue.arrayUnion(value)
-    },{merge:true});
+    db.collection("question")
+      .doc(id)
+      .update(
+        {
+          comment: firebase.firestore.FieldValue.arrayUnion(value),
+        },
+        { merge: true }
+      );
 
     router.push("/user");
   };
@@ -94,7 +98,6 @@ const useAnswer = () => {
                     <Flex minW={24} width={24}>
                       <FormLabel>名前</FormLabel>
                       <Spacer />
-                      <Box>:</Box>
                     </Flex>
                     <Box ml={3}>{post[0]?.name}</Box>
                   </Flex>
@@ -105,7 +108,6 @@ const useAnswer = () => {
                     <Flex minW={24} width={24}>
                       <FormLabel>タイトル</FormLabel>
                       <Spacer />
-                      <Box>:</Box>
                     </Flex>
                     <Box ml={3}>{post[0]?.title}</Box>
                   </Flex>
@@ -116,7 +118,6 @@ const useAnswer = () => {
                     <Flex minW={24} width={24}>
                       <FormLabel>質問内容</FormLabel>
                       <Spacer />
-                      <Box>:</Box>
                     </Flex>
                     <Box ml={3}>{post[0]?.text}</Box>
                   </Flex>
@@ -127,7 +128,6 @@ const useAnswer = () => {
                     <Flex minW={24} width={24}>
                       <FormLabel>回答</FormLabel>
                       <Spacer />
-                      <Box>:</Box>
                     </Flex>
                     <Textarea
                       ml={[0, 6]}
@@ -140,10 +140,7 @@ const useAnswer = () => {
                   </Flex>
                 </FormControl>
               </Stack>
-            </Container>
-            <Spacer />
-
-            <Box pos="absolute" bottom="8" right={6}>
+            <Box display="flex"  mt={4} justifyContent="flex-end">
               <BackButton onClick={() => handler("/user")} />
               <UserButton
                 colorScheme={"linkedin"}
@@ -151,6 +148,8 @@ const useAnswer = () => {
                 onClick={() => sentAnswer(post[0]?.id, value)}
               />
             </Box>
+            </Container>
+            <Spacer />
           </form>
         </Container>
       </Container>
