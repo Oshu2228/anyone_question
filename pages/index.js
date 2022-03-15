@@ -28,16 +28,6 @@ export default function SplitScreen() {
             <Text
               as={"span"}
               position={"relative"}
-              _after={{
-                content: "''",
-                width: "full",
-                height: useBreakpointValue({ base: "20%", md: "30%" }),
-                position: "absolute",
-                bottom: 1,
-                left: 0,
-                bg: "blue.400",
-                zIndex: -1,
-              }}
             >
               教育者支援アプリ
             </Text>
@@ -75,7 +65,7 @@ export default function SplitScreen() {
             </Button>
           </Stack>
           <Box color="blue.200">
-            <Link href="login">
+            <Link href="/login">
               <a>アカウントをお持ちの方はこちら</a>
             </Link>
           </Box>

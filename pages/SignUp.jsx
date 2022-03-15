@@ -87,7 +87,7 @@ const useSignUp = () => {
                   fontSize="12px"
                   _hover={{ opacity: "0.5" }}
                 >
-                  <Link href="/">
+                  <Link href="/login">
                     <a>ユーザー登録済みの方はこちらから</a>
                   </Link>
                 </Box>
