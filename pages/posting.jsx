@@ -17,7 +17,6 @@ import Header from "../src/components/Header";
 import UserButton from "../src/components/atoms/button/UserButton";
 import styles from "../styles/Container.module.css";
 import UseAddPost from "../src/hooks/UseAddPost";
-import Router from "next/router";
 
 const usePost = () => {
   const [addName, setAddName] = useState("");
@@ -44,7 +43,6 @@ const usePost = () => {
                     <Flex minW={24} width={24}>
                       <FormLabel>名前</FormLabel>
                       <Spacer />
-                      <Box>:</Box>
                     </Flex>
                     <Box>
                       <Input
@@ -63,7 +61,6 @@ const usePost = () => {
                     <Flex minW={24} width={24}>
                       <FormLabel>タイトル</FormLabel>
                       <Spacer />
-                      <Box>:</Box>
                     </Flex>
 
                     <Input
@@ -82,7 +79,6 @@ const usePost = () => {
                     <Flex minW={24} width={24}>
                       <FormLabel>質問内容</FormLabel>
                       <Spacer />
-                      <Box>:</Box>
                     </Flex>
                     <Textarea
                       ml={[0, 6]}
