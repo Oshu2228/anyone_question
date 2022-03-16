@@ -28,7 +28,7 @@ const handler = (path) => {
 
 const useAnswer = () => {
   const [posts, setPosts] = useRecoilState(postsState);
-  const [value, setValue] = useState();
+  const [value, setValue] = useState("");
   const router = useRouter();
   const toast = useToast();
   const post = posts.filter((post) => {

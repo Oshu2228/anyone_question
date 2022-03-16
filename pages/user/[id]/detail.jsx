@@ -36,7 +36,7 @@ const useDetail = () => {
 
       <Container className={styles.mainContainer}>
         <Header />
-        <Container className={styles.subContainer}>
+        <Container className={styles.subContainer} bg="#fff">
           <form>
             <Container py={["20px", "60px"]} maxW="container.lg">
               <Stack spacing={[2, 6]}>

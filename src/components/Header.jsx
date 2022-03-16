@@ -16,7 +16,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { Avatar } from "@chakra-ui/react";
-import  Router, { useRouter }  from "next/router";
+import Router, { useRouter } from "next/router";
 import { useRef } from "react";
 import { auth } from "../base/firebase";
 import { RiHome8Line } from "react-icons/ri";
@@ -33,13 +33,13 @@ const Header = () => {
     auth.signOut();
     router.push("/");
   };
-  
+
   return (
     <>
-      <Heading pt="2" pb="2" pl="5" bg="#C5D8D1">
+      <Heading pt="2" pb="2" pl="5" bg="#00A896">
         <Flex alignItems="center">
           {/* エラー文 404 (Not Found) */}
-          <HamburgerIcon ref={btnRef} onClick={onOpen} mr="24px" />
+          <HamburgerIcon ref={btnRef} onClick={onOpen} mr="24px" color="#fff"/>
 
           <Drawer
             isOpen={isOpen}
@@ -64,7 +64,7 @@ const Header = () => {
                   onClick={() => handler("/user")}
                   _hover={{ background: "#8FBFE0", borderRadius: "20px" }}
                 >
-                  <Icon as={RiHome8Line} mr="8px" w={7} h={7}/>
+                  <Icon as={RiHome8Line} mr="8px" w={7} h={7} />
                   <Text lineHeight="48px">ホーム</Text>
                 </Flex>
 
@@ -74,7 +74,7 @@ const Header = () => {
                   onClick={() => handler("/posting")}
                   _hover={{ background: "#8FBFE0", borderRadius: "20px" }}
                 >
-                  <AddIcon mr="8px" w={6} h={6}/>
+                  <AddIcon mr="8px" w={6} h={6} />
                   <Text lineHeight="48px">質問を作成</Text>
                 </Flex>
 
@@ -85,15 +85,11 @@ const Header = () => {
                   _hover={{ background: "#8FBFE0", borderRadius: "20px" }}
                   onClick={() => handler("/editPosts")}
                 >
-                  <EditIcon mr="8px" w={6} h={6}/>
+                  <EditIcon mr="8px" w={6} h={6} />
                   <Text lineHeight="48px">作成した質問を編集</Text>
                 </Flex>
                 <Box textAlign="center">
-                  <Button
-                    mt="40px"
-                    colorScheme="red"
-                    onClick={handleLogout}
-                  >
+                  <Button mt="40px" colorScheme="red" onClick={handleLogout}>
                     Log Out
                   </Button>
                 </Box>
@@ -106,9 +102,11 @@ const Header = () => {
               </DrawerFooter>
             </DrawerContent>
           </Drawer>
-          <Link href="/user">
-          <a>edTalk</a>
-          </Link>
+          <Box color="#fff">
+            <Link href="/user">
+              <a>edTalk</a>
+            </Link>
+          </Box>
         </Flex>
       </Heading>
     </>

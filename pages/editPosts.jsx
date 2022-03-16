@@ -35,8 +35,7 @@ const Edit = () => {
 
       <Container className={styles.mainContainer}>
         <Header />
-        <Container className={styles.subContainer}>
-          <AddButton />
+        <Container className={styles.subContainer} pt={6}>
           <Container h="100%" maxW="100%" mt="5">
             <Table>
               <Thead bg="#F4EDEA">

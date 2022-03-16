@@ -18,13 +18,12 @@ const useAddPost = () => {
         isClosable: true,
       });
     } else {
-
       db.collection("question").add({
         name: addName,
         title: addTitle,
         text: addText,
-        createDate:firebase.firestore.FieldValue.serverTimestamp(),
-        comment:[]
+        createDate: firebase.firestore.FieldValue.serverTimestamp(),
+        comment: [],
       });
 
       router.push("/user");

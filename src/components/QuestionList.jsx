@@ -26,7 +26,7 @@ const PostList = () => {
 
   return (
     <>
-      <AddButton />
+     
 
       <Container  h="100%" maxW="100%" mt="5">
     

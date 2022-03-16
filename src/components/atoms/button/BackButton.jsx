@@ -10,7 +10,8 @@ const BackButton = (props) => {
     <>
       <Button
         size={buttonSize}
-        background="#F4D1AE"
+        background="#B4E1B4"
+        color="#fff"
         _hover={{ opacity: "0.8" }}
         onClick={onClick}
       >

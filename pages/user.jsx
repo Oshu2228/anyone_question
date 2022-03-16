@@ -15,7 +15,7 @@ const useList = () => {
 
       <Container className={styles.mainContainer}>
         <Header />
-        <Container className={styles.subContainer}>
+        <Container className={styles.subContainer} bg="#028090">
           <PostList />
         </Container>
       </Container>
