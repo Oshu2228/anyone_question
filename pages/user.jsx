@@ -14,7 +14,7 @@ const useList = () => {
       </Head>
 
       <Container className={styles.mainContainer}>
-        <Header />
+        <Header titleName={"edtalk"}/>
         <Container className={styles.subContainer} bg="#028090">
           <PostList />
         </Container>

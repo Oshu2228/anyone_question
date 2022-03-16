@@ -38,7 +38,7 @@ const usePost = () => {
       </Head>
 
       <Container className={styles.mainContainer}>
-        <Header />
+        <Header titleName={"edtalk 作成画面"}/>
         <Container className={styles.subContainer}>
           <form>
             <Container py={["20px", "60px"]} maxW="container.lg">

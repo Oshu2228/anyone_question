@@ -42,11 +42,9 @@ const useEdit = () => {
       return;
     }
   }, [isReady]);
-  console.log(isReady);
   const post = posts.filter((post) => {
     return post.id === query.id;
   });
-  console.log(post[0]?.title);
 
   // Post更新用カスタムフック
   const { handleEditPost } = UseEidtPost();
@@ -61,7 +59,7 @@ const useEdit = () => {
       </Head>
 
       <Container className={styles.mainContainer}>
-        <Header />
+        <Header titleName={"edtalk"}/>
         <Container className={styles.subContainer}>
           <form>
             <Container py={["20px", "60px"]} maxW="container.lg">

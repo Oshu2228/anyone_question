@@ -7,7 +7,7 @@ import UserCard from "./UserCard";
 const handler = (path) => {
   Router.push(path);
 };
-const PostList = () => {
+const EditList = () => {
   const posts = useRecoilValue(postsState);
 
   return (
@@ -21,10 +21,10 @@ const PostList = () => {
                 title={post.title}
                 text={post.text}
                 detailClick={() => handler(`/user/${post.id}/detail`)}
-                clickFunction={() => handler(`/user/${post.id}/answer`)}
-                buttonName={"回答する"}
-                bg={"blue.400"}
-                hoverColor={"blue.500"}
+                clickFunction={() => handler(`/user/${post.id}/edit`)}
+                buttonName={"編集する"}
+                bg={"green.400"}
+                hoverColor={"green.500"}
               />
             </WrapItem>
           ))}
@@ -34,4 +34,4 @@ const PostList = () => {
   );
 };
 
-export default PostList;
+export default EditList;

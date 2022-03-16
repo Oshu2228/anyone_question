@@ -35,7 +35,7 @@ const useDetail = () => {
       </Head>
 
       <Container className={styles.mainContainer}>
-        <Header />
+        <Header titleName={"edtalk"}/>
         <Container className={styles.subContainer} bg="#fff">
           <form>
             <Container py={["20px", "60px"]} maxW="container.lg">

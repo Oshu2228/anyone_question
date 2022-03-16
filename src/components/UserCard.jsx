@@ -9,7 +9,16 @@ import {
 } from "@chakra-ui/react";
 
 export default function UserCard(props) {
-  const { name, title, text, detailClick, answerClick } = props;
+  const {
+    name,
+    title,
+    text,
+    detailClick,
+    clickFunction,
+    buttonName,
+    bg,
+    hoverColor,
+  } = props;
   return (
     <>
       <Center py={6}>
@@ -60,20 +69,17 @@ export default function UserCard(props) {
               flex={1}
               fontSize={"sm"}
               rounded={"full"}
-              bg={"blue.400"}
+              bg={bg}
               color={"white"}
               boxShadow={
                 "0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)"
               }
               _hover={{
-                bg: "blue.500",
+                bg:  hoverColor ,
               }}
-              _focus={{
-                bg: "blue.500",
-              }}
-              onClick={answerClick}
+              onClick={clickFunction}
             >
-              回答する
+              {buttonName}
             </Button>
           </Stack>
         </Box>

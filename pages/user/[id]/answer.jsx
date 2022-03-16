@@ -88,7 +88,7 @@ const useAnswer = () => {
       </Head>
 
       <Container className={styles.mainContainer}>
-        <Header />
+        <Header titleName={"edtalk"}/>
         <Container className={styles.subContainer}>
           <form>
             <Container py={["20px", "60px"]} maxW="container.lg">

@@ -15,17 +15,17 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import { Avatar } from "@chakra-ui/react";
 import Router, { useRouter } from "next/router";
 import { useRef } from "react";
 import { auth } from "../base/firebase";
 import { RiHome8Line } from "react-icons/ri";
+import { FaUserCircle } from "react-icons/fa";
 import Link from "next/link";
 const handler = (path) => {
   Router.push(path);
 };
 
-const Header = () => {
+const Header = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
   const router = useRouter();
@@ -33,14 +33,13 @@ const Header = () => {
     auth.signOut();
     router.push("/");
   };
+  const { titleName } = props;
 
   return (
     <>
       <Heading pt="2" pb="2" pl="5" bg="#00A896">
         <Flex alignItems="center">
-          {/* エラー文 404 (Not Found) */}
-          <HamburgerIcon ref={btnRef} onClick={onOpen} mr="24px" color="#fff"/>
-
+          <HamburgerIcon ref={btnRef} onClick={onOpen} mr="24px" color="#fff" />
           <Drawer
             isOpen={isOpen}
             placement="left"
@@ -54,7 +53,7 @@ const Header = () => {
 
               <DrawerBody>
                 <Flex mb="24px" alignItems="center">
-                  <Avatar src="https://bit.ly/broken-link" mr="8px" />
+                  <Icon as={FaUserCircle} mr="8px" w={10} h={10} />
                   <Text>You</Text>
                 </Flex>
 
@@ -88,6 +87,7 @@ const Header = () => {
                   <EditIcon mr="8px" w={6} h={6} />
                   <Text lineHeight="48px">作成した質問を編集</Text>
                 </Flex>
+
                 <Box textAlign="center">
                   <Button mt="40px" colorScheme="red" onClick={handleLogout}>
                     Log Out
@@ -104,7 +104,7 @@ const Header = () => {
           </Drawer>
           <Box color="#fff">
             <Link href="/user">
-              <a>edTalk</a>
+              <a>{titleName}</a>
             </Link>
           </Box>
         </Flex>
