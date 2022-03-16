@@ -52,7 +52,8 @@ export default function SplitScreen() {
                 </Center>
               </Button>
 
-              <Button
+              {/* Googleのログイン設定実装中 */}
+              {/* <Button
                 w={"full"}
                 maxW={"md"}
                 variant={"outline"}
@@ -62,7 +63,7 @@ export default function SplitScreen() {
                 <Center>
                   <Text>Googleでサインイン</Text>
                 </Center>
-              </Button>
+              </Button> */}
             </Stack>
             <Box color="blue.200">
               <Link href="/login">
