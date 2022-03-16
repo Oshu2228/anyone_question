@@ -14,14 +14,10 @@ import {
 import Head from "next/head";
 import React, { useState } from "react";
 import Header from "../src/components/Header";
-import BackButton from "../src/components/atoms/button/BackButton";
 import UserButton from "../src/components/atoms/button/UserButton";
 import styles from "../styles/Container.module.css";
 import UseAddPost from "../src/hooks/UseAddPost";
 import Router from "next/router";
-const handler = (path) => {
-  Router.push(path);
-};
 
 const usePost = () => {
   const [addName, setAddName] = useState("");
@@ -38,7 +34,7 @@ const usePost = () => {
       </Head>
 
       <Container className={styles.mainContainer}>
-        <Header titleName={"edtalk 作成画面"}/>
+        <Header titleName={"edtalk 作成画面"} />
         <Container className={styles.subContainer}>
           <form>
             <Container py={["20px", "60px"]} maxW="container.lg">
@@ -69,16 +65,15 @@ const usePost = () => {
                       <Spacer />
                       <Box>:</Box>
                     </Flex>
-                    
-                      <Input
-                        ml={[0, 6]}
-                        borderColor="#bebaba"
-                        borderWidth="2px"
-                        h="32px"
-                        value={addTitle}
-                        onChange={(e) => setAddTitle(e.target.value)}
-                      />
-                    
+
+                    <Input
+                      ml={[0, 6]}
+                      borderColor="#bebaba"
+                      borderWidth="2px"
+                      h="32px"
+                      value={addTitle}
+                      onChange={(e) => setAddTitle(e.target.value)}
+                    />
                   </Flex>
                 </FormControl>
                 <Divider borderColor="gray" borderBottomWidth="2px" />
@@ -100,14 +95,13 @@ const usePost = () => {
                   </Flex>
                 </FormControl>
               </Stack>
-            <Box display="flex" justifyContent="flex-end" mt={4}>
-              <BackButton onClick={() => handler("/user")} />
-              <UserButton
-                text={"保存"}
-                colorScheme={"blue"}
-                onClick={() => newQuestion(addName, addTitle, addText)}
-              />
-            </Box>
+              <Box display="flex" justifyContent="flex-end" mt={4}>
+                <UserButton
+                  text={"保存"}
+                  colorScheme={"blue"}
+                  onClick={() => newQuestion(addName, addTitle, addText)}
+                />
+              </Box>
             </Container>
             <Spacer />
           </form>

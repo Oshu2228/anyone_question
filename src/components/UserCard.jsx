@@ -7,6 +7,7 @@ import {
   Button,
   useColorModeValue,
 } from "@chakra-ui/react";
+import { useState } from "react";
 
 export default function UserCard(props) {
   const {
@@ -19,6 +20,7 @@ export default function UserCard(props) {
     bg,
     hoverColor,
   } = props;
+
   return (
     <>
       <Center py={6}>

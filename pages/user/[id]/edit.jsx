@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react";
 import {
   Box,
-  Button,
   Container,
   Divider,
   Flex,
@@ -20,13 +19,8 @@ import Header from "../../../src/components/Header";
 import styles from "../../../styles/Container.module.css";
 import { postsState } from "../../../src/atoms/atom";
 import UserButton from "../../../src/components/atoms/button/UserButton";
-import BackButton from "../../../src/components/atoms/button/BackButton";
 import UseDeletePost from "../../../src/hooks/UseDeletePost";
 import UseEidtPost from "../../../src/hooks/UseEidtPost";
-
-const handler = (path) => {
-  Router.push(path);
-};
 
 const useEdit = () => {
   const posts = useRecoilValue(postsState);
@@ -59,7 +53,7 @@ const useEdit = () => {
       </Head>
 
       <Container className={styles.mainContainer}>
-        <Header titleName={"edtalk"}/>
+        <Header titleName={"edtalk"} />
         <Container className={styles.subContainer}>
           <form>
             <Container py={["20px", "60px"]} maxW="container.lg">
@@ -109,14 +103,6 @@ const useEdit = () => {
                 </FormControl>
               </Stack>
               <Box display="flex" justifyContent="flex-end" mt={4}>
-                <BackButton onClick={() => handler("/editPosts")} />
-                {/* <Button
-              colorScheme="red"
-              onClick={() => handleDeletePost(post[0]?.id)}
-              ml={1}
-            >
-              削除
-            </Button> */}
                 <UserButton
                   colorScheme={"red"}
                   text={"削除"}

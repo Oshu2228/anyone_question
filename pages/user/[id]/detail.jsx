@@ -15,10 +15,6 @@ import { useRecoilValue } from "recoil";
 import { postsState } from "../../../src/atoms/atom";
 import styles from "../../../styles/Container.module.css";
 import Header from "../../../src/components/Header";
-import BackButton from "../../../src/components/atoms/button/BackButton";
-const handler = (path) => {
-  Router.push(path);
-};
 
 const useDetail = () => {
   const posts = useRecoilValue(postsState);
@@ -86,9 +82,6 @@ const useDetail = () => {
                   </Flex>
                 </FormControl>
               </Stack>
-              <Box display="flex" justifyContent="flex-end" mt={4}>
-                <BackButton onClick={() => handler("/user")} />
-              </Box>
             </Container>
             <Spacer />
           </form>
