@@ -45,7 +45,7 @@ export default function SplitScreen() {
                 maxW={"md"}
                 variant={"outline"}
                 leftIcon={<FaSignInAlt />}
-                onClick={() => handler("/signup")}
+                onClick={() => handler("/SignUp")}
               >
                 <Center>
                   <Text>新規登録</Text>

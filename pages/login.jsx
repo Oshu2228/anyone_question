@@ -118,7 +118,7 @@ export default function SimpleCard() {
                   </Center>
                 </Button> */}
                 <Box color="blue.200" fontSize={12}>
-                  <Link href="/signup">
+                  <Link href="/SignUp">
                     <a>アカウントをお持ちをお持ちでない方はこちら</a>
                   </Link>
                 </Box>
