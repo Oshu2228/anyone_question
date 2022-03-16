@@ -104,7 +104,9 @@ export default function SimpleCard() {
                 >
                   Sign in
                 </Button>
-                <Button
+
+                 {/* Googleのログイン設定実装中 */}
+                {/* <Button
                   w={"full"}
                   maxW={"md"}
                   variant={"outline"}
@@ -114,12 +116,14 @@ export default function SimpleCard() {
                   <Center>
                     <Text>Googleでサインイン</Text>
                   </Center>
-                </Button>
+                </Button> */}
                 <Box color="blue.200" fontSize={12}>
                   <Link href="/signup">
                     <a>アカウントをお持ちをお持ちでない方はこちら</a>
                   </Link>
                 </Box>
+                <Text>ゲストID : example@xxx.com</Text>
+                <Text>ゲストPass : 123abc</Text>
               </Stack>
             </Stack>
           </Box>
