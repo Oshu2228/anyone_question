@@ -4,6 +4,9 @@
  - chakra-ui/react : ver.1.8.5
  - firebase : ver.8.6.1
 
+## URL
+https://anyone-nine.vercel.app/
+
 ## コンセプト
  - 100人の先生から意見を集められるアプリ。
 
