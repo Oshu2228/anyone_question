@@ -1,4 +1,5 @@
 ## 使用した言語、フレームワーク等
+ - JavaScript
  - react : ver.17.0.2
  - next : ver.12.1.0
  - chakra-ui/react : ver.1.8.5
