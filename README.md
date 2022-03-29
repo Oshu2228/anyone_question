@@ -6,8 +6,7 @@
  - firebase : ver.8.6.1
 
 ## ポートフォリオURL
-https://anyone-nine.vercel.app/
- - 「アカウントをお持ちの方はこちら」を押していただくと、画面にゲストIDとパスワードを用意しておりますので、そちらからログインをお願いします。
+https://anyone-nine.vercel.app/user
 
 ## コンセプト
  - 100人の先生から意見を集められるアプリ。
